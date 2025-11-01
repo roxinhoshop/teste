@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos | Roxinho Shop</title>
+
+    <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+    <!-- CSS -->
+  <link rel="stylesheet" href="/css/produtos.css">
+<!-- Removidos CSS ausentes para evitar erros de carregamento -->
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Placeholder para Header -->
+    <div id="header-placeholder"></div>
+
+           <!-- Breadcrumb Dinâmico-->
+      <div class="breadcrumb-dinamico" id="breadcrumbDinamico" style="display: none;">
+       <span class="texto-voce-esta-em"><b>Você está em:</b></span>
+     <div class="caminho" id="caminhoBreadcrumb">
+
+     <!-- Caminho será gerado dinamicamente -->
+</div></div>
+
+      <!-- ======================= BANNER ======================= -->
+  <section class="banner">
+      <img src="/imagens/banner-produtos.png" alt="">
+  </section>
+
+    <!-- Banner de Categoria -->
+    <div class="banner-categoria" id="bannerCategoria" style="display: none;">
+     <div class="conteudo-banner">
+     <h2 id="tituloCategoria"></h2>
+      <p id="descricaoCategoria"></p>
+    </div>
+</div>
+
+    <main class="conteudo-principal">
+        <div class="container">
+            <div class="wrapper-conteudo">
+
+                    <!-- Coluna da esquerda -->
+                    <div class="coluna-esquerda">
+
+                    <!-- Categorias Relacionadas -->
+                    <div class="secao-filtro">
+                    <h4 class="titulo-categorias-relacionadas" style="color: #475569;">Categorias relacionadas</h4>
+                        <div class="categorias-relacionadas" id="categoriasRelacionadas">
+                            <!-- Categorias serão populadas pelo JavaScript -->
+                        </div>
+                    </div>
+
+                    
+
+                <!-- Barra Lateral de Filtros -->
+                <aside class="barra-filtros" id="barraFiltros">
+                    <div class="cabecalho-filtros">
+                        <h3>Filtros</h3>
+                        <button class="botao-limpar" id="limparFiltros">
+                            <i class="fas fa-times"></i>
+                            Limpar
+                        </button>
+                    </div>
+
+                    <!-- Filtro de Marcas (seletor) -->
+                    <div class="secao-filtro">
+                        <div class="cabecalho-secao">
+                            <h4>Marcas</h4>
+                            <i class="fas fa-chevron-up icone-expandir"></i>
+                        </div>
+                        <div class="conteudo-secao">
+                            <label for="seletorMarca">Filtrar por marca</label>
+                            <select id="seletorMarca" class="seletor-marca">
+                                <option value="">Todas as Marcas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Seletor de Plataforma -->
+                    <div class="secao-filtro">
+                        <div class="cabecalho-secao">
+                            <h4>Plataforma</h4>
+                            <i class="fas fa-chevron-up icone-expandir"></i>
+                        </div>
+                        <div class="conteudo-secao">
+                            <label for="seletorPlataforma">Ver preços por plataforma</label>
+                            <select id="seletorPlataforma" class="seletor-plataforma">
+                                <option value="mercadoLivre">Mercado Livre</option>
+                                <option value="amazon">Amazon</option>
+                                <option value="ambas" selected>Ambas (comparar)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Filtro de Preço Melhorado -->
+                    <div class="secao-filtro secao-preco">
+                        <div class="cabecalho-secao">
+                            <h4>Preço</h4>
+                            <i class="fas fa-chevron-up icone-expandir"></i>
+                        </div>
+                        <div class="conteudo-secao">
+                            <label for="seletorPreco">Exibir preços</label>
+                            <select id="seletorPreco" class="seletor-preco">
+                                <option value="todos" selected>Todos os Preços</option>
+                            </select>
+                            <div class="intervalo-preco-label">Intervalo de Preço</div>
+                            <div class="faixa-preco-visual">
+                                <input type="range" id="faixaPrecoMinimo" min="0" max="15000" value="0" step="100" class="range-minimo">
+                                <input type="range" id="faixaPrecoMaximo" min="0" max="15000" value="15000" step="100" class="range-maximo">
+                                <div class="valores-range">
+                                    <span id="valorMinimoRange">R$ 0</span>
+                                    <span id="valorMaximoRange">R$ 15.000</span>
+                                </div>
+                            </div>
+                            <div class="campos-preco">
+                                <div class="campo-preco">
+                                    <input type="text" id="precoMinimo" placeholder="Mínimo (ex: R$ 0)" class="input-preco">
+                                </div>
+                                <div class="campo-preco">
+                                    <input type="text" id="precoMaximo" placeholder="Máximo (ex: R$ 15.000)" class="input-preco">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filtro de Avaliação -->
+                    <div class="secao-filtro">
+                        <div class="rotulo-avaliacao">Avaliação: <span id="valorAvaliacao">0</span> estrelas</div>
+                        <input type="range" id="filtroAvaliacao" min="0" max="5" value="0" step="0.5">
+                    </div>
+
+                    
+                </aside>
+
+                    </div>
+
+              <!-- Área Principal de Conteúdo -->
+                <div class="area-produtos">
+
+
+                    <!-- BARRA DE ORDENAÇÃO MELHORADA-->
+                    <div class="barra-ordenacao-melhorada">
+                        <div class="grupo-ordenacao">
+                            <label for="seletorOrdenacaoSimples">
+                                <i class="fas fa-sort"></i> Ordenar:
+                            </label>
+                            <select id="seletorOrdenacaoSimples" class="seletor-ordenacao">
+                                <option value="relevancia">Escolha</option>
+                                <option value="preco-asc">Preço crescente</option>
+                                <option value="preco-desc">Preço decrescente</option>
+                                <option value="avaliacao">Melhor avaliação</option>
+                                <option value="desconto">Maior desconto</option>
+                                <option value="avaliacoes">Mais avaliações</option>
+                                <option value="nome">Nome A-Z</option>
+                            </select>
+                        </div>
+
+                        <div class="grupo-exibir">
+                            <label for="seletorExibir">
+                                Exibir:
+                            </label>
+                            <select id="seletorExibir" class="seletor-exibir">
+                                <option value="12">12 por página</option>
+                                <option value="24">24 por página</option>
+                                <option value="36">36 por página</option>
+                                <option value="48">48 por página</option>
+                            </select>
+                        </div>
+
+                        <div class="contador-produtos">
+                            <span class="numero" id="contadorResultados">0</span> produtos
+                        </div>
+
+                        <button class="botao-alternar-filtros" id="alternarFiltros" aria-controls="barraFiltros" aria-expanded="false" title="Mostrar/ocultar filtros">
+                            <i class="fas fa-sliders-h"></i>
+                            Filtros
+                        </button>
+
+                        <div class="alternador-visualizacao">
+                            <button class="botao-visualizacao" id="visualizacaoLista" title="Visualização em lista">
+                                <i class="fas fa-list"></i>
+                            </button>
+                            <button class="botao-visualizacao ativo" id="visualizacaoGrade" title="Visualização em grade">
+                                <i class="fas fa-th"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                         <!-- Grade de Produtos -->
+                    <div class="grade-produtos" id="gradeProdutos">
+                    <!-- Produtos serão populados pelo JavaScript -->
+                    </div>
+
+                    <!-- Paginação Minimalista -->
+                    <div class="paginacao" id="paginacao" style="display: none;">
+                        <!-- Paginação será gerada pelo JavaScript -->
+                    </div>
+
+                    <!-- Mensagem de Nenhum Resultado -->
+                    <div class="sem-resultados" id="semResultados" style="display: none;">
+                        <div class="conteudo-sem-resultados">
+                            <i class="fas fa-search"></i>
+                            <h3>Nenhum produto encontrado</h3>
+                            <p>Tente ajustar os filtros ou fazer uma nova busca</p>
+                            <button class="botao-primario" id="botaoLimparFiltros">Limpar Filtros</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Placeholder para Footer -->
+  <div id="footer-placeholder"></div>
+
+            <!-- JavaScript -->
+    <!-- Define API_BASE para mesma origem antes dos demais scripts -->
+  <script src="/js/site-popup.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/produtos.js"></script>
+  <script src="/js/cabecalho-rodape.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>   <!-- script que preenche os dados -->
+
+    <script>
+fetch('/cabecalho-rodape.html')
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, "text/html");
+
+                const header = doc.querySelector("nav.cabecalho");
+                const categorias = doc.querySelector(".barra-categorias");
+                const footer = doc.querySelector("footer.rodape");
+
+                if (header) document.getElementById("header-placeholder").appendChild(header);
+                if (categorias) document.getElementById("header-placeholder").appendChild(categorias);
+                if (footer) document.getElementById("footer-placeholder").appendChild(footer);
+
+                // Não reinjetar scripts do cabeçalho/rodapé para evitar conflitos
+                // O comportamento do cabeçalho (incluindo a busca) é controlado por
+                // /js/cabecalho-melhorado.js já incluído nesta página.
+                // A presença do MutationObserver garante a inicialização após a injeção.
+            });
+    </script>
+</body>
+</html>
+

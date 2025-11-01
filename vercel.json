@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "rewrites": [
+    { 
+      "source": "/api/(.*)", 
+      "destination": "https://backend.roxinhoshopoficial.workers.dev/api/$1" 
+    }
+  ],
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/paginaproduto", "destination": "/pagina-produto", "statusCode": 308 },
+    { "source": "/redefinirsenha", "destination": "/redefinir-senha", "statusCode": 308 },
+    { "source": "/cabecalhorodape", "destination": "/cabecalho-rodape", "statusCode": 308 }
+  ]
+}

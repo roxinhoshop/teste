@@ -1,0 +1,184 @@
+/* Painel do Vendedor - estilos base e responsividade */
+
+.painel-vendedor { max-width: 1280px; margin: 16px auto; padding: 20px; background: #fff; border: 1px solid #eee; border-radius: 12px; box-shadow: 0 6px 16px rgba(0,0,0,.05); }
+.painel-header { display: flex; gap: 16px; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; margin-bottom: 12px; }
+.painel-header h1 { font-size: 1.6rem; color: #883fd8; margin: 0; }
+.painel-header .subtitulo { color: #444; margin: 4px 0 0; }
+
+.abas { display: flex; gap: 8px; flex-wrap: wrap; }
+.aba { appearance: none; border: 1px solid #d8c7ff; background: #f8f5ff; color: #4b3f72; padding: 8px 12px; border-radius: 10px; cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease; }
+.aba:hover { background: #efe7ff; }
+.aba.ativa { background: #883fd8; color: #fff; border-color: #883fd8; }
+
+.conteudo-aba { display: none; margin-top: 8px; }
+.conteudo-aba.visivel { display: block; }
+
+/* Cards do dashboard */
+.cards-dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.card-info { border: 1px solid #eee; border-radius: 12px; padding: 12px; background: #fafafa; }
+.card-topo { font-weight: 600; color: #5a4a7d; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.card-valor { font-size: 1.8rem; font-weight: 700; color: #222; }
+.card-legenda { color: #666; font-size: .9rem; }
+
+/* Seções e formulários */
+.cabecalho-secao { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 12px 0; }
+.titulo-secao { font-size: 1.25rem; color: #4b3f72; margin: 0; }
+.subtitulo-secao { color: #666; margin: 4px 0 0; }
+
+.form-produto, .form-config { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; border: 1px solid #eee; padding: 16px; border-radius: 12px; background: #fbfbff; }
+.form-produto .grupo { grid-column: span 1; }
+.form-produto .grupo-nome { grid-column: 1 / -1; }
+.form-produto .grupo-descricao { grid-column: 1 / -1; }
+/* Layout da aba Config: 2 colunas confortáveis e campos bem espaçados */
+.form-config { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.form-config .grupo { grid-column: span 1; }
+.form-config .grupo:nth-child(3) { grid-column: 1 / -1; }
+.form-config .acoes-form { grid-column: 1 / -1; justify-content: flex-end; }
+.grupo label { display: block; font-weight: 600; margin-bottom: 6px; color: #000; }
+.grupo input, .grupo textarea, .grupo select { width: 100%; border: 1px solid #ddd; border-radius: 10px; padding: 8px 10px; }
+.acoes-form { display: flex; gap: 8px; align-items: center; }
+.btn-primario { background: #883fd8; color: #fff; border: 1px solid #883fd8; border-radius: 10px; padding: 8px 12px; cursor: pointer; }
+.btn-primario:hover { filter: brightness(1.05); }
+.btn-secundario { background: #fff; color: #4b3f72; border: 1px solid #d8c7ff; border-radius: 10px; padding: 8px 12px; cursor: pointer; }
+
+/* Tabelas genéricas e vendedores */
+.tabela-wrapper { width: 100%; overflow: auto; border: 1px solid #eee; border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; }
+thead th { background: #f6f1ff; color: #4b3f72; font-weight: 700; text-align: left; padding: 10px; white-space: nowrap; }
+tbody td { border-top: 1px solid #f0f0f0; padding: 10px; }
+tbody tr:hover { background: #fcfbff; }
+
+/* Linha de detalhes abaixo do produto (preços ML/Amazon e ações adicionais) */
+.detalhes-produto { background: #f9f7ff; color: #333; }
+.detalhes-produto .conteudo { padding: 10px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.detalhes-produto .preco { font-weight: 600; color: #4b3f72; }
+.detalhes-produto .acoes { margin-left: auto; display: flex; gap: 8px; }
+/* Interatividade: esconder detalhes por padrão e abrir por clique */
+.detalhes-produto { display: none; }
+.detalhes-produto.aberto { display: table-row; }
+
+/* Cores específicas para nome e preço (light mode) */
+.col-nome, .col-preco { color: #000000; }
+
+.badge { display: inline-block; padding: 4px 8px; border-radius: 999px; font-size: .8rem; }
+.badge.ativo { background: #e6ffed; color: #0f7a33; border: 1px solid #b7f3c7; }
+.badge.inativo { background: #fff2f2; color: #a40f0f; border: 1px solid #ffc7c7; }
+
+.acoes .btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; text-decoration: none; cursor: pointer; border: 1px solid #ddd; background: #fff; color: #333; }
+.acoes .btn:hover { background: #f7f7f7; }
+.acoes .btn.editar { border-color: #cfe3ff; color: #0b5ed7; }
+.acoes .btn.desativar { border-color: #ffe0d5; color: #c0392b; }
+
+/* Filtros e paginação */
+.filtros-secao { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin: 10px 0; }
+.grupo-filtro label { display: block; font-size: .9rem; color: #333; margin-bottom: 4px; }
+.grupo-filtro input, .grupo-filtro select { border: 1px solid #ddd; border-radius: 10px; padding: 8px 10px; }
+
+/* Light mode: cor preta para "Itens por página" no histórico */
+html:not(.dark) #aba-historico .controles-historico label,
+html:not(.dark) #aba-historico .controles-historico select {
+  color: #000000;
+}
+
+/* Light mode: cor preta para "Itens por página" na aba Produtos */
+html:not(.dark) #aba-produtos .controles-produtos label {
+  color: #000000;
+}
+
+/* Pop-ups e Toasts */
+.popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.35); backdrop-filter: blur(2px); display: none; z-index: 999; }
+.popup { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #fff; color: #333; border: 1px solid #ddd; border-radius: 12px; box-shadow: 0 12px 30px rgba(0,0,0,.15); width: min(520px, 92vw); max-width: 520px; display: none; z-index: 1000; }
+.popup header { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; font-weight: 600; color: #4b3f72; }
+.popup .conteudo { padding: 16px; display: grid; gap: 12px; }
+.popup .acoes { display: flex; gap: 8px; justify-content: flex-end; padding: 12px 16px; border-top: 1px solid #f0f0f0; }
+.popup .btn { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; background: #fff; cursor: pointer; }
+.popup .btn-primario { background: #883fd8; color: #fff; border-color: #7a36c3; }
+.popup .btn-secundario { background: #f7f7f7; color: #333; }
+
+.toast-container { position: fixed; bottom: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 1100; pointer-events: none; }
+.toast { background: #fff; color: #333; border: 1px solid #ddd; border-left: 4px solid #883fd8; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.12); padding: 10px 12px; min-width: 260px; max-width: 360px; display: flex; align-items: center; gap: 8px; pointer-events: auto; }
+.toast.success { border-left-color: #2ecc71; }
+.toast.error { border-left-color: #e74c3c; }
+.toast.info { border-left-color: #3498db; }
+.toast .acao { margin-left: auto; color: #883fd8; cursor: pointer; }
+.paginacao { display: flex; gap: 8px; justify-content: flex-end; align-items: center; padding: 8px 0; }
+.paginacao button { padding: 6px 10px; border: 1px solid #ddd; border-radius: 8px; background: #fff; cursor: pointer; }
+.paginacao .ativo { background: #883fd8; color: #fff; border-color: #883fd8; }
+/* Info de página (light/dark) */
+.paginacao .info-pagina { color: #000000; font-weight: 700; margin-right: 8px; }
+body.dark .paginacao .info-pagina { color: #ffffff; }
+
+/* Histórico */
+.lista-historico { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.lista-historico li { border: 1px solid #eee; border-radius: 10px; padding: 8px 10px; display: flex; gap: 8px; align-items: center; background: #fbfbfb; }
+.lista-historico time { color: #666; font-size: .85rem; }
+.lista-historico li span { color: #000000; }
+
+/* Histórico (Dark Mode) */
+body.dark .lista-historico li { background: #000000; border-color: #2c2c2f; color: #ffffff; }
+body.dark .lista-historico time { color: #e5e7eb; }
+body.dark .lista-historico li span { color: #ffffff; }
+
+/* Modal do vendedor: tornar conteúdo mais confortável e responsivo */
+.modal-overlay .modal-box { max-height: 95vh; }
+.modal-overlay .modal-conteudo { height: auto; max-height: 80vh; }
+.modal-topo h3 { color: #000000; }
+body.dark .modal-topo h3 { color: #e5e7eb; }
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .cards-dashboard { grid-template-columns: repeat(2, 1fr); }
+  .form-produto, .form-config { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .cards-dashboard { grid-template-columns: 1fr; }
+  .form-produto, .form-config { grid-template-columns: 1fr; }
+  .painel-header { align-items: flex-start; }
+  .modal-overlay .modal-conteudo { max-height: 75vh; }
+}
+
+/* ===== Tema Escuro (Painel do Vendedor) ===== */
+body.dark .painel-vendedor { background: #000000; border-color: #2c2c2f; box-shadow: 0 6px 16px rgba(0,0,0,.35); }
+body.dark .painel-header h1 { color: #a78bfa; }
+body.dark .painel-header .subtitulo { color: #cbd5e1; }
+body.dark .aba { background: #000000; color: #e5e7eb; border-color: #334155; }
+body.dark .aba:hover { background: #000000; }
+body.dark .aba.ativa { background: #883fd8; color: #fff; border-color: #883fd8; }
+body.dark .card-info { border-color: #2c2c2f; background: #000000; }
+body.dark .card-topo { color: #cbd5e1; }
+body.dark .card-valor { color: #f3f4f6; }
+body.dark .card-legenda { color: #94a3b8; }
+body.dark .form-produto, body.dark .form-config { border-color: #2c2c2f; background: #000000; }
+body.dark .grupo label { color: #e5e7eb; }
+body.dark .grupo input, body.dark .grupo textarea, body.dark .grupo select { border-color: #334155; background: #000000; color: #e5e7eb; }
+body.dark .btn-secundario { background: #000000; color: #e5e7eb; border-color: #334155; }
+body.dark thead th { background: #000000; color: #e5e7eb; }
+body.dark tbody td { border-top-color: #1f2937; }
+body.dark tbody tr:hover { background: #000000; }
+/* Cores específicas para nome e preço (dark mode) */
+body.dark .col-nome, body.dark .col-preco { color: #ffffff; }
+/* Detalhes (dark) */
+body.dark .detalhes-produto { background: #0b0b0b; color: #e5e7eb; }
+body.dark .detalhes-produto .preco { color: #a78bfa; }
+
+/* Pop-ups (Dark Mode) */
+body.dark .popup-overlay { background: rgba(0,0,0,.6); backdrop-filter: blur(2px); }
+body.dark .popup { background: #000000; color: #e5e7eb; border-color: #334155; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+body.dark .popup header { border-bottom-color: #1f2937; color: #a78bfa; }
+body.dark .popup .conteudo { color: #e5e7eb; }
+body.dark .popup .acoes { border-top-color: #1f2937; }
+body.dark .popup .btn { background: #000000; color: #e5e7eb; border-color: #334155; }
+body.dark .popup .btn-primario { background: #883fd8; color: #fff; border-color: #7a36c3; }
+body.dark .popup .btn-secundario { background: #000000; color: #e5e7eb; border-color: #334155; }
+
+/* Preview de preço formatado */
+.preco-formatado {
+  display: block;
+  margin-top: 4px;
+  font-weight: 700;
+  color: #000000; /* preto no light */
+}
+
+body.dark .preco-formatado {
+  color: #ffffff; /* branco no dark */
+}

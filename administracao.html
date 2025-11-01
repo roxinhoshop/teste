@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administração | Roxinho Shop</title>
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/vendedores.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <style>
+    /* Layout: manter rodapé no fim e dar respiro à main */
+    html, body { height: 100%; width: 100%; }
+    body { min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+    #header-placeholder { flex: 0 0 auto; }
+    main.vendedores-container { flex: 1 0 auto; margin: 32px auto; }
+    #footer-placeholder { flex: 0 0 auto; }
+    
+    /* Mobile/Tablet: somente conteúdo principal visível */
+    @media (max-width: 1024px) {
+      #header-placeholder, #footer-placeholder { display: none !important; }
+      main.vendedores-container { margin: 16px 12px; }
+    }
+    @media (max-width: 640px) {
+      main.vendedores-container { margin: 16px 8px; }
+    }
+    /* Cards simples para dashboard de produtos (Admin) */
+    .cards-dashboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 8px 0 16px; }
+    .cards-dashboard .card-info { border: 1px solid var(--cinza-300); border-radius: 12px; padding: 12px; background: #fff; }
+    .cards-dashboard .card-topo { font-weight: 700; color: #344054; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .cards-dashboard .card-valor { font-size: 1.6rem; font-weight: 800; color: var(--preto); }
+    .cards-dashboard .card-legenda { color: var(--cinza-500); font-size: .9rem; }
+    body.dark .cards-dashboard .card-info { background: #000000; border-color: #2c2c2f; }
+    body.dark .cards-dashboard .card-topo { color: #e5e7eb; }
+    body.dark .cards-dashboard .card-valor { color: #f3f4f6; }
+    body.dark .cards-dashboard .card-legenda { color: #9ca3af; }
+    /* Ocultar barra de categorias nesta página */
+    .barra-categorias { display: none !important; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="container vendedores-container">
+    <nav class="abas-admin" aria-label="Navegação Administração" style="margin-bottom: 12px;">
+      <button class="aba-admin ativa" data-target="#sec-vendedores"><i class="fa-solid fa-users"></i> Vendedores</button>
+      <button class="aba-admin" data-target="#sec-produtos"><i class="fa-solid fa-box"></i> Todos os Produtos</button>
+      <button class="aba-admin" data-target="#sec-usuarios"><i class="fa-solid fa-user"></i> Usuários</button>
+    </nav>
+
+    <section id="sec-vendedores">
+    <section class="cabecalho-secao">
+      <h1 class="titulo-secao"><i class="fa-solid fa-shield-halved"></i> Administração</h1>
+      <p class="subtitulo-secao">Acesso restrito ao admin da Loja</p>
+    </section>
+
+    <section class="cabecalho-secao" style="margin-top: 24px;">
+      <h2 class="titulo-secao titulo-roxo"><i class="fa-solid fa-users"></i> Vendedores</h2>
+      <p class="subtitulo-secao">Gerencie contas de vendedores</p>
+    </section>
+
+    <!-- Abas de status: Pendentes, Ativos, Inativos, Todos -->
+    <section class="tabs-status" aria-label="Categorias de vendedores" style="margin: 8px 0 12px;">
+      <button class="tab-btn ativa" data-status="todos"><i class="fa-solid fa-layer-group"></i> Todos <span class="badge" id="tabCountTodos">—</span></button>
+      <button class="tab-btn" data-status="pendente"><i class="fa-solid fa-hourglass-half"></i> Pendentes <span class="badge" id="tabCountPendentes">—</span></button>
+      <button class="tab-btn" data-status="ativo"><i class="fa-solid fa-toggle-on"></i> Ativos <span class="badge" id="tabCountAtivos">—</span></button>
+      <button class="tab-btn" data-status="inativo"><i class="fa-solid fa-toggle-off"></i> Inativos <span class="badge" id="tabCountInativos">—</span></button>
+    </section>
+
+    <section class="filtros-secao" aria-label="Filtros da tabela de vendedores">
+      <div class="grupo-filtro">
+        <label for="filtroBusca"><i class="fa-solid fa-magnifying-glass"></i> Buscar</label>
+        <input id="filtroBusca" type="text" placeholder="Nome, e-mail ou CPF" autocomplete="off">
+      </div>
+      <div class="grupo-filtro">
+        <label for="filtroStatus"><i class="fa-solid fa-toggle-on"></i> Status</label>
+        <select id="filtroStatus">
+          <option value="todos" selected>Todos</option>
+          <option value="ativo">Ativo</option>
+          <option value="pendente">Pendente</option>
+          <option value="inativo">Inativo</option>
+        </select>
+      </div>
+      <div class="grupo-filtro">
+        <label for="filtroAtividade"><i class="fa-solid fa-clock-rotate-left"></i> Atividade</label>
+        <select id="filtroAtividade">
+          <option value="todos">Todos</option>
+          <option value="7">Últimos 7 dias</option>
+          <option value="30">Últimos 30 dias</option>
+        </select>
+      </div>
+      <div class="grupo-filtro grupo-itens-por-pagina">
+        <label for="itensPorPagina"><i class="fa-solid fa-list-ol"></i> Itens</label>
+        <select id="itensPorPagina">
+          <option value="todos" selected>Todos</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="tabela-secao" aria-label="Tabela de vendedores">
+      <div class="tabela-wrapper">
+        <table class="tabela-vendedores">
+          <thead>
+            <tr>
+              <th data-sort="nome">Nome <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="cpf">CPF <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="email">E-mail <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="status">Status <i class="fa-solid fa-sort"></i></th>
+              <th data-sort="criadoEm">Criado em <i class="fa-solid fa-sort"></i></th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaVendedoresBody"></tbody>
+        </table>
+      </div>
+      <div class="paginacao" id="paginacao" aria-label="Paginação"></div>
+    </section>
+    </section>
+
+    <!-- Nova aba: Todos os Produtos -->
+    <section id="sec-produtos" style="display:none;">
+      <section class="cabecalho-secao" style="margin-top: 24px;">
+        <h2 class="titulo-secao titulo-roxo"><i class="fa-solid fa-box"></i> Todos os Produtos</h2>
+        <p class="subtitulo-secao">Controle global: editar categoria e subcategoria</p>
+        
+      </section>
+      <!-- Dashboard de Produtos (Admin) -->
+      <div class="cards-dashboard" id="adminCardsProdutos" aria-label="Resumo de produtos do site">
+        <div class="card-info">
+          <div class="card-topo"><i class="fa-solid fa-boxes-stacked"></i> Produtos</div>
+          <div class="card-valor" id="adminCardTotalProdutos">—</div>
+          <div class="card-legenda">Itens cadastrados</div>
+        </div>
+        <div class="card-info">
+          <div class="card-topo"><i class="fa-solid fa-circle-check"></i> Ativos</div>
+          <div class="card-valor" id="adminCardAtivos">—</div>
+          <div class="card-legenda">Disponíveis para venda</div>
+        </div>
+      </div>
+      <section class="tabela-secao" aria-label="Tabela de produtos">
+        <div class="tabela-wrapper">
+          <table class="tabela-vendedores">
+            <thead>
+              <tr>
+                <th>Foto</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Subcategoria</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaProdutosBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <div class="paginacao" id="paginacaoProdutos" aria-label="Paginação"></div>
+    </section>
+
+    <!-- Nova aba: Usuários -->
+    <section id="sec-usuarios" style="display:none;">
+      <section class="cabecalho-secao" style="margin-top: 24px;">
+        <h2 class="titulo-secao titulo-roxo"><i class="fa-solid fa-user"></i> Usuários</h2>
+        <p class="subtitulo-secao">Controle: listar todos os usuários da tabela</p>
+      </section>
+      <section class="tabela-secao" aria-label="Tabela de usuários">
+        <div class="tabela-wrapper">
+          <table class="tabela-vendedores">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Role</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaUsuariosBody"></tbody>
+          </table>
+        </div>
+      </section>
+      <div class="paginacao" id="paginacaoUsuarios" aria-label="Paginação"></div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- Modal de Edição -->
+  <div id="modalEditar" class="modal" aria-hidden="true" role="dialog" aria-modal="false">
+    <div class="modal-conteudo" role="document">
+      <div class="modal-cabecalho">
+        <h3><i class="fa-solid fa-pen-to-square"></i> Editar vendedor</h3>
+        <button id="fecharModal" class="btn-fechar" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-corpo">
+        <div class="campo">
+          <label for="editarNome">Nome</label>
+          <input type="text" id="editarNome" />
+        </div>
+        <div class="campo">
+          <label for="editarNomeLoja">Nome da Loja</label>
+          <input type="text" id="editarNomeLoja" placeholder="—" />
+        </div>
+        <div class="campo">
+          <label for="editarCPF">CPF</label>
+          <input type="text" id="editarCPF" placeholder="000.000.000-00" maxlength="14" />
+        </div>
+        <div class="campo">
+          <label for="linkDocumento">Documento</label>
+          <a id="linkDocumento" href="#" target="_blank" class="btn btn-secundario"><i class="fa-solid fa-file"></i> Abrir documento</a>
+        </div>
+        <div class="campo">
+          <label for="editarStatus">Status</label>
+          <select id="editarStatus">
+            <option value="ativo">Ativo</option>
+            <option value="pendente">Pendente</option>
+            <option value="inativo">Inativo</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-rodape">
+        <button id="cancelarEdicao" class="btn btn-secundario">Cancelar</button>
+        <button id="salvarEdicao" class="btn btn-primario">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Edição de Usuário -->
+  <div id="modalEditarUsuario" class="modal" aria-hidden="true" role="dialog" aria-modal="false">
+    <div class="modal-conteudo" role="document">
+      <div class="modal-cabecalho">
+        <h3><i class="fa-solid fa-pen-to-square"></i> Editar usuário</h3>
+        <button id="fecharModalUsuario" class="btn-fechar" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-corpo">
+        <div class="campo">
+          <label for="editarUsuarioNome">Nome</label>
+          <input type="text" id="editarUsuarioNome" />
+        </div>
+        <div class="campo">
+          <label for="editarUsuarioSobrenome">Sobrenome</label>
+          <input type="text" id="editarUsuarioSobrenome" />
+        </div>
+        <div class="campo">
+          <label for="editarUsuarioEmail">E-mail</label>
+          <input type="email" id="editarUsuarioEmail" />
+        </div>
+        <div class="campo">
+          <label for="editarUsuarioRole">Role</label>
+          <select id="editarUsuarioRole">
+            <option value="cliente">Cliente</option>
+            <option value="vendedor">Vendedor</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-rodape">
+        <button id="cancelarEdicaoUsuario" class="btn btn-secundario">Cancelar</button>
+        <button id="salvarEdicaoUsuario" class="btn btn-primario">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  <script src="/js/vendedores.js"></script>
+  <script src="/js/admin-produtos.js"></script>
+  <script src="/js/admin-usuarios.js"></script>
+  
+  <!-- Modal de Edição de Produto (Admin) -->
+  <div id="modalEditarProdutoAdm" class="modal" aria-hidden="true" role="dialog" aria-modal="false">
+    <div class="modal-conteudo" role="document">
+      <div class="modal-cabecalho">
+        <h3><i class="fa-solid fa-pen-to-square"></i> Editar produto</h3>
+        <button id="admFecharModal" class="btn-fechar" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-corpo">
+        <div class="campo">
+          <label for="admEditNome">Nome</label>
+          <input type="text" id="admEditNome" />
+        </div>
+        <div class="campo">
+          <label for="admEditDescricao">Descrição</label>
+          <textarea id="admEditDescricao" rows="3"></textarea>
+        </div>
+        <div class="campo">
+          <label for="admEditPrecoML">Preço Mercado Livre</label>
+          <input type="number" id="admEditPrecoML" min="0" step="0.01" />
+        </div>
+        <div class="campo">
+          <label for="admEditPrecoAmazon">Preço Amazon</label>
+          <input type="number" id="admEditPrecoAmazon" min="0" step="0.01" />
+        </div>
+        <div class="campo">
+          <label for="admEditFoto">Foto (URL)</label>
+          <input type="url" id="admEditFoto" placeholder="https://..." />
+        </div>
+        <div class="campo">
+          <label for="admEditLinkML">Link Mercado Livre</label>
+          <input type="url" id="admEditLinkML" placeholder="https://www.mercadolivre.com.br/..." />
+        </div>
+        <div class="campo">
+          <label for="admEditLinkAmazon">Link Amazon</label>
+          <input type="url" id="admEditLinkAmazon" placeholder="https://www.amazon.com.br/..." />
+        </div>
+        <div class="campo">
+          <label for="admEditCategoria">Categoria</label>
+          <select id="admEditCategoria">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="admEditSubcategoria">Subcategoria</label>
+          <select id="admEditSubcategoria">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="admEditStatus">Status</label>
+          <select id="admEditStatus">
+            <option value="ativo">Ativo</option>
+            <option value="inativo">Inativo</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-rodape">
+        <button id="admBtnCancelarEdit" class="btn btn-secundario">Cancelar</button>
+        <button id="admBtnSalvarEdit" class="btn btn-primario">Salvar</button>
+      </div>
+      <form id="formEditarProdutoAdm" style="display:none"></form>
+    </div>
+  </div>
+  <script>
+    // Guard de acesso: apenas usuário com role admin
+    (function(){
+      const isLocalHost = () => /^(localhost|127\.0\.0\.1)$/.test(location.hostname || '');
+      const base64url = (input) => {
+        const bin = (typeof input === 'string') ? input : String.fromCharCode(...new Uint8Array(input));
+        return btoa(bin).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+      };
+      async function createDevAdminToken() {
+        if (!isLocalHost()) return null;
+        if (!(window.crypto && crypto.subtle)) return null;
+        try {
+          const enc = new TextEncoder();
+          const key = await crypto.subtle.importKey('raw', enc.encode('devsecret'), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+          const header = { alg: 'HS256', typ: 'JWT' };
+          const payload = { id: 1, iat: Math.floor(Date.now() / 1000) };
+          const headerEnc = base64url(enc.encode(JSON.stringify(header)));
+          const payloadEnc = base64url(enc.encode(JSON.stringify(payload)));
+          const toSign = enc.encode(headerEnc + '.' + payloadEnc);
+          const sig = await crypto.subtle.sign('HMAC', key, toSign);
+          const sigEnc = base64url(sig);
+          return headerEnc + '.' + payloadEnc + '.' + sigEnc;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      (async () => {
+        try {
+          const headers = {};
+          try {
+            const tok = await createDevAdminToken();
+            if (tok) headers['Authorization'] = 'Bearer ' + tok;
+          } catch (_) {}
+          const r = await fetch('/api/auth/me', { credentials: 'include', headers });
+          const data = await r.json();
+          const user = data && data.user;
+          const role = String(user && user.role || '').toLowerCase();
+          if (!user || role !== 'admin') {
+            // Exibe erro amigável e bloqueia acesso
+            try { window.sitePopup && window.sitePopup.alert('Esta área é restrita ao administrador da loja.', 'Acesso restrito'); } catch {}
+            const main = document.querySelector('main.vendedores-container');
+            if (main) {
+              main.innerHTML = `
+                <section class="cabecalho-secao" style="margin-top: 8px;">
+                  <h1 class="titulo-secao"><i class="fa-solid fa-shield-halved"></i> Acesso restrito</h1>
+                  <p class="subtitulo-secao">Você precisa estar logado como <strong>admin</strong> para visualizar esta página.</p>
+                </section>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top: 12px;">
+                  <a class="btn btn-primario" href="/login.html"><i class="fa-solid fa-right-to-bracket"></i> Fazer login</a>
+                  <a class="btn btn-secundario" href="/"><i class="fa-solid fa-house"></i> Ir para a Home</a>
+                </div>
+              `;
+            }
+            return;
+          }
+        } catch (e) {
+          console.warn('Falha ao verificar autenticação admin:', e);
+        }
+      })();
+    })();
+  </script>
+  <script>
+fetch('/cabecalho-rodape.html')
+      .then(r => r.text())
+      .then(html => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const header = doc.querySelector('nav.cabecalho');
+        const categorias = doc.querySelector('.barra-categorias');
+        const footer = doc.querySelector('footer.rodape');
+        if (header) document.getElementById('header-placeholder').appendChild(header);
+        if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+        if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+        doc.querySelectorAll('script').forEach(s => {
+          const ns = document.createElement('script');
+          if (s.src) ns.src = s.src; else ns.textContent = s.textContent;
+          document.body.appendChild(ns);
+        });
+      });
+  </script>
+  <script>
+    // Estilo simples das abas no próprio arquivo para evitar dependência extra
+    (function(){
+      const style = document.createElement('style');
+      style.textContent = `
+        .abas-admin { display:flex; gap:8px; align-items:center; }
+        .aba-admin { border:1px solid var(--cinza-300); background:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; color:#101828; }
+        .aba-admin.ativa { background: var(--roxinho); color:#fff; border-color: var(--roxinho); }
+        body.dark .aba-admin { background:#000000; color:#e5e7eb; border-color:#334155; }
+        body.dark .aba-admin.ativa { background:#883fd8; border-color:#883fd8; color:#fff; }
+        .tabela-vendedores td img.thumb { width:48px; height:48px; object-fit:cover; border-radius:8px; border:1px solid var(--cinza-300); }
+      `;
+      document.head.appendChild(style);
+    })();
+  </script>
+</body>
+</html>

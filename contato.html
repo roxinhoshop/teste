@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato | Roxinho Shop</title>
+
+    <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+  <link rel="stylesheet" href="/css/contato.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+
+</head>
+<body class="contato-page">
+
+<div id="header-placeholder"></div>
+
+<main class="contato">
+  <section class="informacoes-contato">
+    <h1>Contato</h1>
+    <p>Entre em contato conosco através dos canais abaixo. Estamos sempre disponíveis para esclarecer dúvidas, receber sugestões e ajudar você da melhor forma possível.</p>
+
+    <ul>
+      <li><strong><i class="fa-solid fa-envelope"></i> Email: </strong>roxinhoshopoficial@gmail.com</li>
+      <li><strong><i class="fa-solid fa-location-dot"></i> Endereço:</strong> Rua Camélia, 26 - Osasco/SP</li>
+    </ul>
+  </section>
+
+  <section class="formulario-contato">
+    <h2>Envie sua mensagem</h2>
+    <form id="formContato" novalidate>
+      <input type="text" name="nome" id="campoNome" placeholder="Seu nome" required>
+      <input type="email" name="email" id="campoEmail" placeholder="Seu email" required>
+      <textarea name="mensagem" id="campoMensagem" placeholder="Sua mensagem" required></textarea>
+      <button type="submit" id="btnEnviar">Enviar</button>
+    </form>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script src="/js/site-popup.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  <script src="/js/rotas.js"></script>
+  <script src="/js/contato.js"></script>
+<script>
+fetch('/cabecalho-rodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      // Atualizar contador do carrinho se disponível
+      if (typeof atualizarContadorCarrinho === 'function') {
+        atualizarContadorCarrinho();
+      }
+    })
+    .catch(err => console.error('Erro ao carregar cabeçalho/rodapé:', err));
+</script>
+    </body>
+</html>

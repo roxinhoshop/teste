@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roxinho Shop - Os melhores preços em eletrônicos!</title>
+
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/pagina-produto.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+
+  <!-- Chart.js para o gráfico de histórico de preços -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <!-- Header será inserido dinamicamente no body -->
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epunda+Sans:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+
+<!-- Container Principal -->
+<div class="pagina-produto">
+  
+  <!-- Coluna esquerda (galeria) -->
+  <div class="coluna-esquerda">
+    <!-- Breadcrumb acima da imagem do produto -->
+    <nav class="breadcrumb">
+      <span id="breadcrumb"></span>
+    </nav>
+    <div class="imagem-principal">
+      <img id="imagemProduto" src="" alt="Imagem do produto" fetchpriority="high" loading="eager" decoding="async">
+    </div>
+    <div class="miniaturas" id="miniaturas"></div>
+    
+    <!-- Histórico de Preços abaixo das miniaturas -->
+    <section class="grafico-historico" id="graficoHistorico">
+      <div class="grafico-header">
+        <h3>Histórico de Preços</h3>
+        <div class="periodos" id="periodosGrafico">
+          <button class="btn-periodo ativo" data-range="40">40 dias</button>
+          <button class="btn-periodo" data-range="90">3 meses</button>
+          <button class="btn-periodo" data-range="180">6 meses</button>
+          <button class="btn-periodo" data-range="365">1 ano</button>
+        </div>
+      </div>
+      <canvas id="graficoPrecoCanvas" aria-label="Gráfico de histórico de preços" role="img"></canvas>
+    </section>
+  </div>
+
+  <!-- Coluna direita (informações do produto) -->
+  <div class="coluna-direita">
+    <div class="info-produto">
+      <div class="marca">
+        <span class="badge-marca" id="marcaProduto"></span>
+      </div>
+
+      <h1 id="nomeProduto"></h1>
+
+      <div class="descricao-e-sku">
+        <div class="descricao-curta" id="descricaoProduto"></div>
+      </div>
+      <div class="linha-sku">
+        <span class="sku" id="skuProduto"></span>
+      </div>
+
+      <!-- Painel de Compra -->
+      <div class="painel-compra">
+        <!-- Comparativo de Preços -->
+        <div class="comparativo-precos" id="comparativoPrecos"></div>
+        <!-- Botões de ação (dentro do painel) -->
+        <div class="botoes-acao">
+          <button class="btn-comprar-agora" onclick="abrirMercadoLivre()" aria-label="Comprar no Mercado Livre" title="Comprar no Mercado Livre">
+  <img src="/imagens/logos/mercado-livre.png" alt="Mercado Livre" class="logo-plataforma logo-ml">
+          </button>
+          <button class="btn-carrinho" onclick="abrirAmazon()" aria-label="Comprar na Amazon" title="Comprar na Amazon">
+  <img src="/imagens/logos/amazon-logo.png" alt="Amazon" class="logo-plataforma logo-amazon">
+          </button>
+        </div>
+      </div>     
+
+      <!-- Lista de Ofertas / Lojas -->
+      <section class="lista-ofertas" id="listaOfertas"></section>
+
+    </div>
+  </div>
+</div>
+
+<!-- Sistema de Avaliações -->
+<div class="secao-avaliacoes">
+  <h2>Avaliações do Produto</h2>
+  
+  <!-- Resumo das Avaliações -->
+  <div class="resumo-avaliacoes">
+    <div class="media-geral">
+      <div class="nota-media">
+        <span class="numero-media" id="notaMedia">0.0</span>
+        <div class="estrelas-media" id="estrelasMedia"></div>
+        <span class="total-avaliacoes" id="totalAvaliacoes">Nenhuma avaliação ainda</span>
+      </div>
+    </div>
+
+    <div class="distribuicao-notas">
+      <div class="barra-distribuicao" data-estrelas="5">
+        <span class="numero-estrelas">5</span>
+        <div class="barra-progresso">
+          <div class="preenchimento-barra" id="barra5"></div>
+        </div>
+        <span class="percentual-nota" id="percentual5">0%</span>
+      </div>
+      <div class="barra-distribuicao" data-estrelas="4">
+        <span class="numero-estrelas">4</span>
+        <div class="barra-progresso">
+          <div class="preenchimento-barra" id="barra4"></div>
+        </div>
+        <span class="percentual-nota" id="percentual4">0%</span>
+      </div>
+      <div class="barra-distribuicao" data-estrelas="3">
+        <span class="numero-estrelas">3</span>
+        <div class="barra-progresso">
+          <div class="preenchimento-barra" id="barra3"></div>
+        </div>
+        <span class="percentual-nota" id="percentual3">0%</span>
+      </div>
+      <div class="barra-distribuicao" data-estrelas="2">
+        <span class="numero-estrelas">2</span>
+        <div class="barra-progresso">
+          <div class="preenchimento-barra" id="barra2"></div>
+        </div>
+        <span class="percentual-nota" id="percentual2">0%</span>
+      </div>
+      <div class="barra-distribuicao" data-estrelas="1">
+        <span class="numero-estrelas">1</span>
+        <div class="barra-progresso">
+          <div class="preenchimento-barra" id="barra1"></div>
+        </div>
+        <span class="percentual-nota" id="percentual1">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros de Avaliação -->
+  <div class="filtros-avaliacao">
+    <div class="filtro-botoes">
+      <button class="btn-filtro ativo" data-filtro="todas">Todas</button>
+      <button class="btn-filtro" data-filtro="com-foto">Com foto</button>
+      <button class="btn-filtro" data-filtro="5">5 estrelas</button>
+      <button class="btn-filtro" data-filtro="4">4 estrelas</button>
+      <button class="btn-filtro" data-filtro="3">3 estrelas</button>
+      <button class="btn-filtro" data-filtro="2">2 estrelas</button>
+      <button class="btn-filtro" data-filtro="1">1 estrela</button>
+    </div>
+    <div class="ordenacao-avaliacoes">
+      <select id="ordenarAvaliacoes">
+        <option value="mais-recentes">Mais recentes</option>
+        <option value="mais-antigas">Mais antigas</option>
+        <option value="maior-nota">Maior nota</option>
+        <option value="menor-nota">Menor nota</option>
+
+      </select>
+    </div>
+  </div>
+
+  <!-- Lista de Avaliações -->
+  <div class="lista-avaliacoes" id="listaAvaliacoes">
+    <!-- As avaliações serão carregadas aqui via JavaScript -->
+  </div>
+
+  <!-- Paginação -->
+  <div class="paginacao-avaliacoes" id="paginacaoAvaliacoes">
+    <!-- Botões de paginação serão adicionados aqui -->
+  </div>
+
+  <!-- Botão para Adicionar Avaliação -->
+  <div class="adicionar-avaliacao">
+    <button class="btn-avaliar" id="btnAvaliar">
+      <i class="fa-solid fa-star"></i>
+      Avaliar este produto
+    </button>
+  </div>
+</div>
+
+<!-- Modal de Avaliação -->
+<div class="modal-avaliacao" id="modalAvaliacao">
+  <div class="modal-conteudo">
+    <div class="modal-header">
+      <h3>Avalie este produto</h3>
+      <button class="btn-fechar-modal" id="btnFecharModal">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="produto-avaliacao">
+        <img id="imagemProdutoModal" src="" alt="Produto">
+        <span id="nomeProdutoModal"></span>
+      </div>
+      
+      <div class="selecao-nota">
+        <label>Sua nota:</label>
+        <div class="estrelas-selecao" id="estrelasSelecao">
+          <i class="fa-solid fa-star" data-nota="1"></i>
+          <i class="fa-solid fa-star" data-nota="2"></i>
+          <i class="fa-solid fa-star" data-nota="3"></i>
+          <i class="fa-solid fa-star" data-nota="4"></i>
+          <i class="fa-solid fa-star" data-nota="5"></i>
+        </div>
+        <span class="nota-selecionada" id="notaSelecionada">Selecione uma nota</span>
+      </div>
+
+      <div class="titulo-avaliacao">
+        <label for="tituloAvaliacao">Título da avaliação:</label>
+        <input type="text" id="tituloAvaliacao" placeholder="Resuma sua opinião sobre o produto">
+      </div>
+
+      <div class="comentario-avaliacao">
+        <label for="comentarioAvaliacao">Seu comentário:</label>
+        <textarea id="comentarioAvaliacao" placeholder="Compartilhe sua experiência com o produto..."></textarea>
+      </div>
+
+      <div class="fotos-avaliacao">
+        <label>Adicionar fotos (opcional):</label>
+        <div class="upload-fotos">
+          <input type="file" id="fotosAvaliacao" multiple accept="image/*" style="display: none;">
+          <button class="btn-adicionar-foto" id="btnAdicionarFoto">
+            <i class="fa-solid fa-camera"></i>
+            Adicionar fotos
+          </button>
+          <div class="preview-fotos" id="previewFotos"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancelar" id="btnCancelar">Cancelar</button>
+      <button class="btn-enviar-avaliacao" id="btnEnviarAvaliacao">Publicar avaliação</button>
+    </div>
+  </div>
+</div>
+
+<!-- Produtos Relacionados -->
+<div class="produtos-relacionados">
+  <h2>Produtos Relacionados</h2>
+  <div class="grade-relacionados" id="gradeRelacionados">
+    <!-- Produtos serão carregados via JavaScript -->
+  </div>
+</div>
+
+<!-- Footer -->
+<div id="footer-placeholder"></div>
+
+<!-- Scripts -->
+  <script src="/js/site-popup.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/links-externos.js"></script>
+  <script src="/js/pagina-produto.js"></script>
+  <script src="/js/cabecalho-rodape.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+
+<script>
+  // Carregar Header e Footer
+fetch('/cabecalho-rodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      // Executar scripts do cabecalho/rodape
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+</script>
+</body>
+</html>

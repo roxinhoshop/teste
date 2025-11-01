@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quem somos | Roxinho Shop</title>
+
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/quem-somos.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Cabeçalho Dinâmico -->
+  <div id="header-placeholder"></div>
+
+  <!-- ======================= CONTEÚDO QUEM SOMOS ======================= -->
+  <main class="quem-somos">
+    <section class="sobre-nos">
+      <h1>Quem Somos</h1>
+      <p>
+        A Roxinho Shop nasceu do sonho de apresentar produtos de qualidade com os melhores preços do mercado.
+        Nosso compromisso é oferecer um catálogo prático e atualizado, facilitando a escolha e o contato para compra de forma segura, rápida e satisfatória.
+      </p>
+      <p>
+        Nossa equipe é formada por profissionais apaixonados pelo que fazem, sempre buscando inovação e excelência no atendimento.
+        Acreditamos que cada cliente é único e merece atenção especial, por isso oferecemos um suporte ágil e personalizado para garantir a melhor experiência com nosso catálogo.
+      </p>
+    </section>
+
+    <section class="missao-visao-valores">
+      <h2>Missão, Visão e Valores</h2>
+      <div class="item">
+        <h3>Missão</h3>
+        <p>Oferecer um catálogo de produtos de qualidade, com preços justos e um atendimento próximo e humanizado.</p>
+      </div>
+      <div class="item">
+        <h3>Visão</h3>
+        <p>Ser referência em confiança e satisfação na apresentação e intermediação de produtos por meio de nosso catálogo.</p>
+      </div>
+      <div class="item">
+        <h3>Valores</h3>
+        <p>Transparência, ética, inovação e compromisso com cada cliente em todas as etapas do nosso catálogo de vendas.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé Dinâmico -->
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="/js/site-popup.js"></script>
+  <script>
+fetch('/cabecalho-rodape.html')
+      .then(response => response.text())
+      .then(data => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+
+        const header = doc.querySelector('nav.cabecalho');
+        const categorias = doc.querySelector('.barra-categorias');
+        const footer = doc.querySelector('footer.rodape');
+
+        if (header) document.getElementById('header-placeholder').appendChild(header);
+        if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+        if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+        // Executar scripts do cabecalho/rodape
+        doc.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) newScript.src = oldScript.src;
+          else newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+      });
+  </script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página não encontrada · Roxinho Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/cabecalho-rodape.css" />
+    <link rel="stylesheet" href="/css/responsivo.css" />
+    <style>
+      :root {
+        --erro-bg: #f8f9fb;
+        --erro-text: #1f2937;
+        --erro-subtext: #4b5563;
+        --erro-accent: #7c3aed;
+        --erro-border: #e5e7eb;
+      }
+      body {
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+        background: var(--erro-bg);
+        color: var(--erro-text);
+        margin: 0;
+      }
+      .erro-container {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 48px 16px 72px;
+        text-align: center;
+      }
+      .erro-card {
+        background: #fff;
+        border: 1px solid var(--erro-border);
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+      }
+      .erro-icone {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 16px;
+        border-radius: 16px;
+        background: rgba(124, 58, 237, 0.08);
+        display: grid;
+        place-items: center;
+        color: var(--erro-accent);
+        font-size: 32px;
+        line-height: 1;
+      }
+      .erro-titulo {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 8px 0 6px;
+      }
+      .erro-descricao {
+        font-size: 15px;
+        color: var(--erro-subtext);
+        margin-bottom: 20px;
+      }
+      .erro-acoes {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn-erro {
+        padding: 10px 16px;
+        border-radius: 10px;
+        border: 1px solid var(--erro-border);
+        text-decoration: none;
+        color: var(--erro-text);
+        background: #fff;
+        transition: all 0.15s ease-in-out;
+      }
+      .btn-erro:hover { border-color: #d1d5db; transform: translateY(-1px); }
+      .btn-erro-primaria { background: var(--erro-accent); color: #fff; border-color: var(--erro-accent); }
+      .btn-erro-primaria:hover { filter: brightness(1.05); }
+
+      .rodape-hint { margin-top: 18px; font-size: 13px; color: var(--erro-subtext); }
+    </style>
+  </head>
+  <body>
+    <header id="cabecalho"></header>
+    <main class="erro-container">
+      <div class="erro-card" role="alert" aria-live="polite">
+        <div class="erro-icone" aria-hidden="true">404</div>
+        <h1 class="erro-titulo">Página não encontrada</h1>
+        <p class="erro-descricao">O endereço digitado não existe. Verifique a URL ou navegue pelas opções abaixo.</p>
+        <div class="erro-acoes">
+          <a class="btn-erro btn-erro-primaria" href="/">Ir para a Home</a>
+          <a class="btn-erro" href="/produtos.html">Ver produtos</a>
+          <a class="btn-erro" href="/buscar.html">Buscar por produtos</a>
+        </div>
+        <div class="rodape-hint">Se você veio por um link, pode ter sido removido ou movido.</div>
+      </div>
+    </main>
+    <footer id="rodape"></footer>
+
+    <script src="/js/site-popup.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/cabecalho-melhorado.js"></script>
+    <script>
+      // Insere cabeçalho e rodapé padrões
+      (function inserirCabecalhoRodape() {
+        fetch('/cabecalho-rodape.html')
+          .then(r => r.ok ? r.text() : '')
+          .then(html => {
+            if (!html) return;
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            const head = tmp.querySelector('header');
+            const foot = tmp.querySelector('footer');
+            if (head) document.getElementById('cabecalho').replaceWith(head);
+            if (foot) document.getElementById('rodape').replaceWith(foot);
+          })
+          .catch(() => {});
+      })();
+    </script>
+  </body>
+  </html>

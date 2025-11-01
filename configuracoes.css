@@ -1,0 +1,407 @@
+/* Página de Configurações — estilo profissional (tema #833dd0) */
+
+:root {
+  /* Paleta Roxinho Shop */
+  --roxinho: #833dd0;
+  --roxinho-escuro: var(--roxinho);
+  --amarelo: #eab308;
+  --bg: #fdfdfd;
+  --bg-card: #ffffff;
+  --text: #1f1f1f;
+  --text-muted: #6b7280;
+  --border: #e5e5e5;
+  --success: #22c55e;
+  --error: #ef4444;
+
+  /* Floating label (visual e transições) */
+  --label-bg: rgba(131, 61, 208, 0.12);
+  --label-padding-x: 6px;
+
+  /* Tipografia e espaçamentos */
+  --font-sans: "Nunito Sans", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  /* Raio e sombras */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.16);
+}
+
+/* ===== Tema Escuro (Configurações) usando variáveis ===== */
+html.dark :root, body.dark {
+  --bg: #0b0b0d;
+  --bg-card: #0b0b0d;
+  --text: #FFFFFF;
+  --text-muted: #FFFFFF;
+  --border: #1f2937;
+  /* ajuste leve para contraste do fundo translúcido do label em dark */
+  --label-bg: rgba(131, 61, 208, 0.20);
+}
+body.dark .coluna-esquerda { background: var(--bg-card); border-color: var(--border); }
+body.dark .area-produtos { background: var(--bg-card); border-color: var(--border); }
+body.dark .cabecalho-filtros { background: var(--roxinho); color: #ffffff; }
+body.dark .item-navegacao a { color: var(--text); }
+body.dark .item-navegacao a:hover { background: #0b0b0d; color: #a78bfa; }
+body.dark .item-navegacao a small { color: var(--text-muted); }
+body.dark .card-config { background: var(--bg-card); border-color: var(--border); }
+body.dark .formulario-perfil { background: var(--bg-card); border-color: var(--border); }
+body.dark .entrada-formulario, body.dark .form-input { border-color: #334155; background: #0b0b0d; color: #e5e7eb; }
+body.dark .entrada-formulario:focus, body.dark .form-input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.18); }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3 {
+  letter-spacing: 0.2px;
+}
+
+/* Removido: overrides de cabeçalho específicos desta página.
+O cabeçalho passa a usar os estilos padronizados de cabecalho-rodape.css
+   para manter estrutura, cores e tipografia consistentes. */
+
+/* Container principal */
+.container-painel { padding: clamp(12px, 3vw, 24px) 0; flex: 1; }
+.container { max-width: 1400px; margin: 0 auto; padding-inline: clamp(12px, 3vw, 32px); }
+.wrapper-conteudo { display: grid; grid-template-columns: minmax(220px, 260px) 1fr; gap: clamp(16px, 3vw, 28px); }
+
+/* Sidebar */
+.coluna-esquerda { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.cabecalho-filtros { background: var(--roxinho-escuro); color: #ffffff; padding: 16px; border-bottom: none; border-top-left-radius: var(--radius-lg); border-top-right-radius: var(--radius-lg); }
+.cabecalho-filtros { border-bottom: 1px solid #4b5563; }
+body.dark .cabecalho-filtros { border-bottom-color: #4b5563; }
+.cabecalho-filtros h3 { margin:0; font-size: 1rem; color: #ffffff; background: transparent; display:inline-block; padding:0; border-radius:0; border:0; }
+.menu-navegacao { list-style:none; margin:0; padding:8px; }
+.item-navegacao a { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; color:var(--text); text-decoration:none; transition: background 180ms ease, color 180ms ease, transform 180ms ease; }
+.item-navegacao a:hover { background: #f8fafc; color: var(--roxinho); transform: translateX(2px); }
+.item-navegacao a.active { background: #f1f5f9; border:1px solid var(--border); box-shadow: inset 3px 0 0 var(--roxinho); }
+.item-navegacao a:focus-visible { outline: 3px solid rgba(131,61,208,0.35); outline-offset: 3px; }
+/* Tratar aria-current como ativo */
+.item-navegacao a[aria-current="page"] { background: #f1f5f9; border:1px solid var(--border); box-shadow: inset 3px 0 0 var(--roxinho); }
+/* Hierarquia e visibilidade dos labels */
+.item-navegacao a .fa-user-gear,
+.item-navegacao a .fa-shield-halved { color: var(--roxinho); }
+.item-navegacao a span { font-weight: 700; }
+.item-navegacao a small { color: var(--text-muted); }
+
+/* Área principal */
+.area-produtos { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.breadcrumb-dinamico { display:flex; align-items:center; gap:8px; padding:14px 16px; border-bottom:1px solid var(--border); color:var(--text-muted); }
+.caminho { display:flex; align-items:center; gap:8px; }
+.item-caminho.ativo { color: var(--roxinho); }
+
+.banner-categoria { padding: 16px; border-bottom:1px solid var(--border); }
+.titulo-categoria { font-size: 1.5rem; font-weight: 800; display:inline-block; color: #ffffff; padding:6px 12px; border-radius:10px; border:none; }
+
+/* Seções */
+.secao-conteudo { padding: 16px; display:block; }
+.card-config { background:#ffffff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; margin-bottom:16px; box-shadow: none; }
+.card-config h3 { margin-top:0; margin-bottom:40px; font-size:1.15rem; font-weight:800; color:#ffffff; background: var(--roxinho); padding: 8px 12px; border-radius: 8px; display: inline-block; }
+.perfil-grid { display:grid; grid-template-columns: minmax(360px, 2fr) minmax(260px, 1fr); gap:16px; align-items:start; }
+.perfil-form-col, .perfil-avatar-col { background:transparent; }
+.formulario-perfil { background:#ffffff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; margin-bottom:16px; box-shadow: none; }
+.formulario-perfil h3 { margin:0 0 12px; font-size:1.1rem; }
+
+/* Avatar */
+.perfil-avatar { display:flex; align-items:center; gap:16px; justify-content: center; }
+.avatar-container { display:flex; flex-direction: column; align-items:center; gap:12px; text-align: center; }
+.avatar-preview { width:72px; height:72px; border-radius:50%; border:2px solid var(--border); background:#ffffff; box-shadow: var(--shadow-sm); transition: transform 180ms ease, box-shadow 180ms ease; }
+.avatar-preview:hover { transform: scale(1.03); box-shadow: var(--shadow-md); }
+.avatar-upload input[type="file"] { display:none; }
+.avatar-upload { display:flex; flex-direction: column; align-items: center; gap: 8px; }
+.btn-upload-avatar { background: linear-gradient(90deg, var(--roxinho), var(--roxinho)); color:#fff; border:none; padding:10px 14px; border-radius:var(--radius-md); cursor:pointer; font-weight:700; display:flex; align-items:center; gap:8px; transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease; }
+.btn-upload-avatar:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); filter: brightness(1.03); }
+.btn-upload-avatar:focus-visible { outline: 3px solid rgba(131,61,208,0.35); outline-offset: 3px; }
+
+/* Botão Remover Foto */
+.btn-remover-avatar { background:#ffffff; color:#333; border:1px solid var(--border); border-radius:var(--radius-md); padding:10px 14px; cursor:pointer; font-weight:700; display:flex; align-items:center; gap:8px; transition: transform 160ms ease, box-shadow 160ms ease; }
+.btn-remover-avatar:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.btn-remover-avatar:focus-visible { outline: 3px solid rgba(131,61,208,0.35); outline-offset: 3px; }
+body.dark .btn-remover-avatar { background:#000000; color:#ffffff; border-color:#2c2c2f; }
+body.dark .btn-remover-avatar:hover { filter: brightness(1.05); }
+
+/* Formulários com labels flutuantes — replicado do login/cadastro */
+.linha-formulario { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-4); }
+.grupo-formulario { position: relative; }
+.grupo-formulario.coluna-completa { grid-column: 1 / -1; margin-bottom: var(--space-4); }
+
+.form-group { position: relative; margin-bottom: var(--space-2); }
+.floating-label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  background: transparent;
+  padding: 0 4px;
+}
+
+.entrada-formulario, .form-input {
+  width: 100%;
+  height: 52px;
+  padding: 16px 12px;
+  border: 1.5px solid #d1d5db;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  line-height: 1.2;
+  background: transparent;
+  color: inherit;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+.entrada-formulario:hover, .form-input:hover { border-color: #d1d5db; }
+.entrada-formulario:focus, .form-input:focus { border-color: #d1d5db; box-shadow: none; outline: none; transform: none; }
+.entrada-formulario::placeholder, .form-input::placeholder { color: transparent; }
+
+.entrada-formulario:focus + .floating-label,
+.entrada-formulario:not(:placeholder-shown) + .floating-label,
+.form-input:focus + .floating-label,
+.form-input:not(:placeholder-shown) + .floating-label {
+  top: -6px;
+  left: 8px;
+  font-size: 0.8rem;
+  color: #7c3aed;
+  background: transparent;
+  padding: 0 4px;
+}
+
+/* Dark mode overrides — iguais ao login/cadastro */
+html.dark .entrada-formulario:focus + .floating-label,
+html.dark .entrada-formulario:not(:placeholder-shown) + .floating-label,
+html.dark .form-input:focus + .floating-label,
+html.dark .form-input:not(:placeholder-shown) + .floating-label {
+  background: transparent;
+  padding: 0 4px;
+  color: #a78bfa;
+}
+
+.entrada-formulario.invalido, .form-input.invalido { border-color: var(--error); box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); }
+.entrada-formulario.valido, .form-input.valido { border-color: #d1d5db; box-shadow: none; }
+.entrada-formulario.invalido + .floating-label, .form-input.invalido + .floating-label { color: var(--error); }
+
+/* Mensagens de erro acessíveis */
+.mensagem-erro { color: var(--error); font-weight: 500; font-size: 0.75rem; margin-top: 0.25rem; display: none; }
+.mensagem-erro.visivel { display: block; }
+.erro-texto { color: var(--error); font-size: 0.75rem; margin-top: 0.25rem; }
+.apenas-leitura-tela { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+.acoes-formulario { display:flex; gap:10px; margin-top:12px; }
+.botao-primario { background: linear-gradient(90deg, var(--roxinho), var(--roxinho)); color:#fff; border:none; border-radius:var(--radius-md); padding:10px 14px; font-weight:700; cursor:pointer; transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease; }
+.botao-primario:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); filter: brightness(1.03); }
+.botao-primario:focus-visible { outline: 3px solid rgba(131,61,208,0.35); outline-offset: 3px; }
+.botao-secundario { background:#ffffff; color:#333; border:1px solid var(--border); border-radius:var(--radius-md); padding:10px 14px; cursor:pointer; transition: transform 160ms ease, box-shadow 160ms ease; }
+.botao-secundario:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.botao-secundario:focus-visible { outline: 3px solid rgba(131,61,208,0.35); outline-offset: 3px; }
+/* Dark mode: Cancelar e Redefinir pretos com label branco */
+body.dark .acoes-formulario .botao-secundario,
+body.dark #btn-cancelar-perfil,
+body.dark #btn-redefinir-perfil {
+  background: #000000;
+  color: #ffffff;
+  border-color: #2c2c2f;
+}
+body.dark .acoes-formulario .botao-secundario:hover,
+body.dark #btn-cancelar-perfil:hover,
+body.dark #btn-redefinir-perfil:hover {
+  filter: brightness(1.05);
+}
+/* Botão desabilitado */
+.botao-primario[disabled] { opacity: 0.6; cursor: not-allowed; filter: grayscale(30%); }
+
+/* Senha */
+/* (mantido vazio; entradas usam .form-input) */
+.mensagem-status { font-size:0.85rem; margin-top:8px; color: #000000; }
+.mensagem-status.sucesso { color: var(--success); }
+.mensagem-status.erro { color: var(--error); }
+
+/* Accordions removidos desta página */
+
+/* Acessibilidade: reduzir movimento em sistemas com preferência */
+@media (prefers-reduced-motion: reduce) {
+  .btn-upload-avatar,
+  .botao-primario,
+  .botao-secundario,
+  .campo-formulario input,
+  .avatar-preview,
+  .item-navegacao a,
+  details.accordion > summary .summary-icon {
+    transition: none !important;
+  }
+}
+
+/* Footer usa estilos padrões compartilhados; sem overrides locais */
+/* Ocultar newsletter desta página, caso algum bloco seja injetado */
+.newsletter,
+.newsletter-form {
+  display: none !important;
+}
+
+/* ===== Ajustes de cabeçalho específicos desta página ===== */
+.cabecalho .container-cabecalho { grid-template-columns: auto 1fr auto; gap: clamp(12px, 3vw, 20px); }
+.cabecalho .icones { display: inline-flex; align-items: center; gap: clamp(8px, 2vw, 12px); }
+.cabecalho .icones .caixa-entre { margin-left: 0; }
+@media (max-width: 768px) {
+  .cabecalho { padding: clamp(8px, 2vw, 12px); }
+  .cabecalho .icones { gap: 6px; }
+  .cabecalho .caixa-entre { width: auto; height: auto; padding: 6px 10px; }
+  .cabecalho .caixa-entre .texto { display: none; }
+}
+
+/* Responsivo */
+@media (max-width: 1200px) { .wrapper-conteudo { grid-template-columns: minmax(220px, 260px) 1fr; } }
+@media (max-width: 992px) { .wrapper-conteudo { grid-template-columns: 1fr; } .coluna-esquerda { order:2; } }
+@media (max-width: 600px) { .linha-formulario { grid-template-columns: 1fr; } .perfil-grid { grid-template-columns: 1fr; } }
+
+/* Estado de carregamento da área principal */
+.area-produtos[data-loading="true"] { cursor: progress; }
+.area-produtos[data-loading="true"] .card-config,
+.area-produtos[data-loading="true"] .perfil-grid,
+.area-produtos[data-loading="true"] .banner-categoria { opacity: 0.6; pointer-events: none; }
+/* ===== Ajustes de navegação e abas (Configurações) ===== */
+.menu-navegacao a,
+.menu-navegacao .link-navegacao {
+  background: transparent;
+  color: #000000;
+}
+
+.menu-navegacao .link-navegacao.active {
+  color: #000000;
+  border-left: 3px solid var(--roxinho);
+}
+
+/* Abas: ocultar conteúdo não ativo via aria-hidden */
+.card-config[aria-hidden="true"] {
+  display: none;
+}
+
+/* Avatar: padrão consistente */
+.avatar-preview,
+#avatarPreview,
+img.avatar-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  image-rendering: auto;
+  background-color: transparent;
+}
+
+/* Cabeçalho da seção sem fundo branco */
+.banner-categoria {
+  border-bottom: 1px solid var(--border);
+}
+
+.titulo-categoria {
+  background: transparent !important;
+  color: #FFFFFF !important;
+}
+
+/* ===== Overrides solicitados (remoção de bordas e ajustes de tipografia) ===== */
+.coluna-esquerda,
+.area-produtos,
+.formulario-perfil,
+.card-config {
+  border: none !important;
+}
+
+.breadcrumb-dinamico {
+  border-bottom: none !important;
+}
+
+.avatar-preview {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* ===== Transições suaves para elementos chave ===== */
+.coluna-esquerda,
+.barra-filtros,
+.area-produtos,
+.breadcrumb-dinamico,
+.card-config,
+.formulario-perfil,
+.perfil-avatar,
+.menu-navegacao .link-navegacao {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Remover linha divisória entre itens do menu (ativo) */
+.item-navegacao a.active,
+.item-navegacao a[aria-current="page"] {
+  border: none !important;
+  box-shadow: inset 3px 0 0 var(--roxinho);
+}
+body.dark .menu-navegacao .link-navegacao.active {
+  border-right: none !important;
+  border-left: 3px solid var(--roxinho);
+}
+
+/* ===== Dark Mode Overrides — Configurações ===== */
+/* 1) Section settings: fundo preto, textos brancos, bordas escuras */
+body.dark .secao-conteudo { background: #000000; color: #FFFFFF; }
+body.dark .area-produtos { background: #000000; border: 1px solid #2c2c2f !important; }
+body.dark .card-config,
+body.dark .formulario-perfil { background: #000000; color: #FFFFFF; border: 1px solid #2c2c2f !important; }
+body.dark .card-config h3 { color: #FFFFFF; }
+
+/* 2) Perfil-avatar: fundo preto, textos brancos, legibilidade mantida */
+body.dark .perfil-avatar { background: #000000; color: #FFFFFF; border: 1px solid #2c2c2f !important; }
+body.dark .avatar-container,
+body.dark .avatar-upload,
+body.dark .mensagem-status { color: #FFFFFF; }
+body.dark .avatar-preview { background: #000000 !important; border: 2px solid #2c2c2f !important; box-shadow: none; }
+
+/* 3) Barra de filtros: fundo preto, labels brancos, ícones roxos, hover/active acessíveis */
+body.dark .barra-filtros { background: #000000; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45); }
+body.dark .cabecalho-filtros { background: var(--roxinho); color: #FFFFFF; }
+body.dark .menu-navegacao .link-navegacao { color: #FFFFFF; }
+body.dark .menu-navegacao .link-navegacao:hover { background: rgba(255, 255, 255, 0.06); color: #FFFFFF; transform: translateX(5px); }
+body.dark .menu-navegacao .link-navegacao.active { background: rgba(255, 255, 255, 0.08); color: #FFFFFF; border-right: 3px solid #ffc800; }
+body.dark .menu-navegacao .link-navegacao i { color: #833dd0; }
+
+/* 4) Breadcrumb: fundo preto, textos brancos, hierarquia clara */
+body.dark .breadcrumb-dinamico { background: #000000; color: #FFFFFF; border-bottom: 1px solid #2c2c2f !important; }
+body.dark .breadcrumb-dinamico .texto-voce-esta-em { color: #FFFFFF; }
+body.dark .breadcrumb-dinamico .item-caminho { color: #e5e7eb; }
+body.dark .breadcrumb-dinamico .item-caminho.ativo { color: var(--roxinho); }
+body.dark .breadcrumb-dinamico .separador { color: #FFFFFF; }
+
+/* Acessibilidade: labels flutuantes legíveis no dark */
+body.dark .floating-label { color: #FFFFFF; }
+
+/* Barra lateral: remover negrito dos labels */
+.item-navegacao a span {
+  font-weight: 400 !important; /* sem negrito */
+}
+.item-navegacao a {
+  font-weight: 400 !important;
+}
+
+/* Garantir label branco em cabeçalho roxo */
+.banner-categoria {
+  background: var(--roxinho) !important;
+}
+.titulo-categoria {
+  color: #FFFFFF !important;
+}
+
+/* Dar mais respiro para campos de Segurança */
+#seguranca .linha-formulario { grid-template-columns: repeat(2, minmax(300px, 1fr)); gap: var(--space-5); }

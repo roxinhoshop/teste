@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Vendedor | Roxinho Shop</title>
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/painel-vendedor.css">
+  <link rel="stylesheet" href="/css/vendedores.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <style>
+    /* Layout local: manter rodapé no fim e dar respiro à main */
+    html, body { height: 100%; }
+    body { min-height: 100vh; display: flex; flex-direction: column; }
+    #header-placeholder { flex: 0 0 auto; }
+    main.painel-vendedor { flex: 1 0 auto; margin: 32px auto; }
+    #footer-placeholder { flex: 0 0 auto; }
+    @media (max-width: 640px) {
+      main.painel-vendedor { margin: 24px 8px; }
+    }
+    /* Ocultar barra de categorias nesta página */
+    .barra-categorias { display: none !important; }
+    /* Modal de edição de produto */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-overlay.visivel { display: flex; }
+    .modal-box { width: 95%; max-width: 960px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+    .modal-topo { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid #e5e7eb; background: #f9fafb; }
+    .modal-topo h3 { margin: 0; font-size: 1rem; }
+    .modal-fechar { border: none; background: transparent; cursor: pointer; font-size: 1.2rem; }
+    .modal-conteudo { width: 100%; height: auto; max-height: 80vh; overflow-y: auto; padding: 12px; }
+    @media (max-width: 640px) {
+      .modal-conteudo { max-height: 75vh; }
+    }
+    .modal-topo h3 { color: #000000; }
+    body.dark .modal-topo h3 { color: #e5e7eb; }
+    body.dark .modal-box { background: #111827; }
+    body.dark .modal-topo { border-color: #1f2937; background: #0f172a; color: #e5e7eb; }
+  </style>
+  
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="painel-vendedor">
+    <header class="painel-header">
+      <div class="titulo-area">
+        <h1><i class="fa-solid fa-store"></i> Painel do Vendedor</h1>
+        <p id="boas-vindas-vendedor" class="subtitulo">Bem-vindo(a) ao seu painel.</p>
+      </div>
+      <nav class="abas" aria-label="Navegação do painel">
+        <button class="aba ativa" data-alvo="#aba-produtos"><i class="fa-solid fa-box"></i> Produtos & Inventário</button>
+        <!-- removido: link para Vendedores foi movido ao Painel Admin -->
+        <button class="aba" data-alvo="#aba-historico"><i class="fa-solid fa-clock-rotate-left"></i> Histórico</button>
+        <button class="aba" data-alvo="#aba-config"><i class="fa-solid fa-gear"></i> Configurações</button>
+      </nav>
+    </header>
+
+    <!-- Dashboard removido do painel do vendedor -->
+
+    <section id="aba-produtos" class="conteudo-aba visivel" aria-labelledby="Produtos & Inventário">
+      <header class="cabecalho-secao">
+        <h2 class="titulo-secao"><i class="fa-solid fa-box"></i> Produtos & Inventário</h2>
+        <p class="subtitulo-secao">Cadastre, edite e gerencie seu estoque</p>
+      </header>
+      <form id="formProduto" class="form-produto" autocomplete="off">
+        <div class="grupo grupo-nome">
+          <label>Nome</label>
+          <input id="produtoNome" type="text" required placeholder="Ex.: Teclado Mecânico" />
+        </div>
+        <div class="grupo grupo-descricao">
+          <label>Descrição</label>
+          <textarea id="produtoDescricao" rows="3" placeholder="Detalhes do produto"></textarea>
+        </div>
+        <div class="grupo grupo-preco-ml">
+          <label>Preço Mercado Livre</label>
+          <input id="produtoPrecoML" type="number" min="0" step="0.01" required placeholder="0,00" />
+          <small class="preco-formatado" id="precoMLFormatado" aria-live="polite"></small>
+        </div>
+        <div class="grupo grupo-preco-amazon">
+          <label>Preço Amazon</label>
+          <input id="produtoPrecoAmazon" type="number" min="0" step="0.01" placeholder="0,00" />
+          <small class="preco-formatado" id="precoAmazonFormatado" aria-live="polite"></small>
+        </div>
+        <div class="grupo grupo-foto">
+          <label>Foto (URL)</label>
+          <input id="produtoFoto" type="url" placeholder="https://..." />
+        </div>
+        <div class="grupo grupo-ml">
+          <label>Link Mercado Livre</label>
+          <input id="produtoLinkML" type="url" placeholder="https://www.mercadolivre.com.br/..." />
+        </div>
+        <div class="grupo grupo-amazon">
+          <label>Link Amazon</label>
+          <input id="produtoLinkAmazon" type="url" placeholder="https://www.amazon.com.br/..." />
+        </div>
+        <div class="grupo grupo-cat">
+          <label>Categoria</label>
+          <select id="produtoCategoria">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+        <div class="grupo grupo-subcat">
+          <label>Subcategoria</label>
+          <select id="produtoSubcategoria">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+        <div class="acoes-form">
+          <button class="btn-primario" type="submit"><i class="fa-solid fa-plus"></i> Adicionar</button>
+          <button class="btn-secundario" type="button" id="btnLimparForm">Limpar</button>
+        </div>
+      </form>
+      <div class="controles-produtos" style="display:flex; align-items:center; gap:8px; justify-content:flex-end; padding:8px 0;">
+        <label for="prodItensPorPagina">Itens por página:</label>
+        <select id="prodItensPorPagina" aria-label="Itens por página">
+          <option value="6">6</option>
+          <option value="12">12</option>
+          <option value="24">24</option>
+          <option value="48">48</option>
+        </select>
+      </div>
+      <div class="tabela-wrapper">
+        <table class="tabela-generic">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Nome</th>
+              <th>Preço</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyProdutos"></tbody>
+        </table>
+      </div>
+      <div class="paginacao" id="paginacaoProdutosVend" aria-label="Paginação de produtos do vendedor"></div>
+    </section>
+
+    <!-- Modal: Editar Produto (formulário inline) -->
+    <div class="modal-overlay" id="modalEditarProduto" role="dialog" aria-modal="true" aria-labelledby="tituloModalEditar">
+      <div class="modal-box">
+        <div class="modal-topo">
+          <h3 id="tituloModalEditar"><i class="fa-solid fa-pen"></i> Editar Produto</h3>
+          <button class="modal-fechar" id="fecharModalEditar" aria-label="Fechar">✕</button>
+        </div>
+        <div class="modal-conteudo">
+          <form id="formEditarProdutoVend" class="form-produto form-editar-produto" autocomplete="off">
+            <div class="grupo grupo-nome">
+              <label>Nome</label>
+              <input id="editProdutoNome" type="text" required placeholder="Ex.: Teclado Mecânico" />
+            </div>
+            <div class="grupo grupo-descricao">
+              <label>Descrição</label>
+              <textarea id="editProdutoDescricao" rows="3" placeholder="Detalhes do produto"></textarea>
+            </div>
+            <div class="grupo grupo-preco-ml">
+              <label>Preço Mercado Livre</label>
+              <input id="editProdutoPrecoML" type="number" min="0" step="0.01" placeholder="0,00" />
+              <small class="preco-formatado" id="editPrecoMLFormatado" aria-live="polite"></small>
+            </div>
+            <div class="grupo grupo-preco-amazon">
+              <label>Preço Amazon</label>
+              <input id="editProdutoPrecoAmazon" type="number" min="0" step="0.01" placeholder="0,00" />
+              <small class="preco-formatado" id="editPrecoAmazonFormatado" aria-live="polite"></small>
+            </div>
+            <div class="grupo grupo-foto">
+              <label>Foto (URL)</label>
+              <input id="editProdutoFoto" type="url" placeholder="https://..." />
+            </div>
+            <div class="grupo grupo-ml">
+              <label>Link Mercado Livre</label>
+              <input id="editProdutoLinkML" type="url" placeholder="https://www.mercadolivre.com.br/..." />
+            </div>
+            <div class="grupo grupo-amazon">
+              <label>Link Amazon</label>
+              <input id="editProdutoLinkAmazon" type="url" placeholder="https://www.amazon.com.br/..." />
+            </div>
+            <div class="grupo grupo-cat">
+              <label>Categoria</label>
+              <select id="editProdutoCategoria">
+                <option value="">Selecione...</option>
+              </select>
+            </div>
+            <div class="grupo grupo-subcat">
+              <label>Subcategoria</label>
+              <select id="editProdutoSubcategoria">
+                <option value="">Selecione...</option>
+              </select>
+            </div>
+            <div class="grupo grupo-status">
+              <label>Status</label>
+              <select id="editProdutoStatus">
+                <option value="ativo">Ativo</option>
+                <option value="inativo">Inativo</option>
+              </select>
+            </div>
+            <div class="acoes-form">
+              <button class="btn-primario" type="submit" id="btnSalvarEdicaoProduto"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+              <button class="btn-secundario" type="button" id="btnCancelarEdicaoProduto"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seção de Vendedores removida: conteúdo movido para Painel Admin -->
+
+    <section id="aba-historico" class="conteudo-aba" aria-labelledby="Histórico">
+      <header class="cabecalho-secao">
+        <h2 class="titulo-secao"><i class="fa-solid fa-clock-rotate-left"></i> Histórico</h2>
+        <p class="subtitulo-secao">Registro de ações recentes</p>
+      </header>
+      <div class="controles-historico" style="display:flex; align-items:center; gap:8px; justify-content:flex-end; padding:8px 0;">
+        <label for="historicoItensPorPagina">Itens por página:</label>
+        <select id="historicoItensPorPagina" aria-label="Itens por página">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+      <ul id="listaHistorico" class="lista-historico"></ul>
+      <div id="paginacaoHistorico" class="paginacao" aria-label="Paginação do histórico">
+        <button id="btnHistPrev" type="button" class="anterior">Anterior</button>
+        <span id="histPageInfo" aria-live="polite"></span>
+        <button id="btnHistNext" type="button" class="proximo">Próximo</button>
+      </div>
+    </section>
+
+    <section id="aba-config" class="conteudo-aba" aria-labelledby="Configurações">
+      <header class="cabecalho-secao">
+        <h2 class="titulo-secao"><i class="fa-solid fa-gear"></i> Configurações</h2>
+        <p class="subtitulo-secao">Preferências da sua loja</p>
+      </header>
+      <form id="formConfig" class="form-config">
+        <div class="grupo">
+          <label>Nome da loja</label>
+          <input id="configNomeLoja" type="text" placeholder="Ex.: Loja do João" />
+        </div>
+        <div class="grupo">
+          <label>Telefone</label>
+          <input id="configTelefone" type="tel" placeholder="(00) 00000-0000" />
+        </div>
+        <div class="grupo">
+          <label>Sobre a loja</label>
+          <textarea id="configSobre" rows="4" placeholder="Fale um pouco sobre sua loja..."></textarea>
+        </div>
+        <div class="acoes-form">
+          <button class="btn-primario" type="submit"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Container para toasts/notificações -->
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="/js/site-popup.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  <script src="/js/painel-vendedor.js"></script>
+  <!-- script vendedores.js removido: agora utilizado no Painel Admin -->
+  <script>
+fetch('/cabecalho-rodape.html')
+      .then(r => r.text())
+      .then(html => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const header = doc.querySelector('nav.cabecalho');
+        const categorias = doc.querySelector('.barra-categorias');
+        const footer = doc.querySelector('footer.rodape');
+        if (header) document.getElementById('header-placeholder').appendChild(header);
+        if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+        if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+        // reexecutar scripts do header injetado se houver
+        doc.querySelectorAll('script').forEach(s => {
+          const ns = document.createElement('script');
+          if (s.src) ns.src = s.src; else ns.textContent = s.textContent;
+          document.body.appendChild(ns);
+        });
+      });
+  </script>
+  <script>
+    // Guard de acesso: exige sessão válida de vendedor (ou admin)
+    (async () => {
+      try {
+        const r = await fetch('/api/vendors/products/me', { credentials: 'include', cache: 'no-store' });
+        const ct = (r.headers.get('content-type') || '').toLowerCase();
+        const data = ct.includes('application/json') ? await r.json().catch(() => ({})) : {};
+        if (!r.ok || !data || !data.success) {
+          try { window.sitePopup && window.sitePopup.alert('Faça login como vendedor para acessar seu painel.', 'Acesso restrito'); } catch {}
+          const main = document.querySelector('main.painel-vendedor');
+          if (main) {
+            main.innerHTML = `
+              <header class="painel-header">
+                <div class="titulo-area">
+                  <h1><i class="fa-solid fa-store"></i> Painel do Vendedor</h1>
+                  <p class="subtitulo">Acesso restrito ao vendedor</p>
+                </div>
+              </header>
+              <section class="conteudo-aba visivel" aria-labelledby="Acesso restrito">
+                <p class="subtitulo-secao">Você precisa estar logado como <strong>vendedor</strong> para visualizar esta página.</p>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top: 12px;">
+                  <a class="btn btn-primario" href="/login-vendedor.html"><i class="fa-solid fa-right-to-bracket"></i> Login de vendedor</a>
+                  <a class="btn btn-secundario" href="/"><i class="fa-solid fa-house"></i> Ir para a Home</a>
+                </div>
+              </section>
+            `;
+          }
+        }
+      } catch (e) {
+        console.warn('Falha ao verificar sessão de vendedor:', e);
+      }
+    })();
+  </script>
+</body>
+</html>

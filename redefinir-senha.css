@@ -1,0 +1,358 @@
+/* ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== */
+/* Desenvolvido por Gabriel (gabwvr) */
+/* Este arquivo contém estilos para [SEÇÃO] */
+/* Cores principais: Roxo (#7c3aed) e Amarelo (#fab60b) */
+
+
+/* ==============================
+   🔹 RESET BÁSICO
+============================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+body {
+  background: #ffffff; /* fundo branco sólido */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* Cabeçalho em cima, rodapé embaixo */
+}
+
+/* ==============================
+   🔹 CONTEÚDO CENTRAL (LOGIN)
+============================== */
+main {
+  flex: 1; /* ocupa o espaço entre header e footer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* centraliza verticalmente o formulário dentro do container */
+}
+
+.login-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.login-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 500px;   /* limite para não ficar gigante */
+  min-height: 480px;  /* mantém uma altura mínima */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centraliza conteúdo dentro do card */
+  margin: 0 auto; /* centraliza horizontalmente no desktop também */
+}
+
+/* ==============================
+   🔹 TÍTULOS
+============================== */
+.welcome-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.welcome-subtitle {
+  color: #6b7280;
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ==============================
+   🔹 INPUTS (LABEL FLUTUANTE)
+============================== */
+.input-container {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+/* Campo */
+.input-container .form-input {
+  width: 100%;
+  padding: 1rem 0.9rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+}
+
+
+.form-input.error {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+/* Label flutuante */
+.input-container .form-label {
+  font-family: Nunito Sans, sans-serif;
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+
+.input-container .form-input:focus + .form-label,
+.input-container .form-input:not(:placeholder-shown) + .form-label {
+  top: -6px;
+  left: 8px;
+  font-size: 0.8rem;
+  color: #7c3aed;
+  background: transparent;
+  padding: 0 4px;
+}
+
+/* ===== Dark Mode Overrides (Floating Label) ===== */
+html.dark .input-container .form-input:focus + .form-label,
+html.dark .input-container .form-input:not(:placeholder-shown) + .form-label {
+  background: transparent;
+  padding: 0 4px;
+}
+
+/* Asterisco vermelho */
+.form-label .asterisco {
+  color: #e63946;
+}
+
+.error-message {
+  font-family: Nunito Sans, sans-serif;
+  display: none;
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 8px;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==============================
+   🔹 AVISOS / FEEDBACK
+============================== */
+.enviar-link {
+  font-family: Nunito Sans, sans-serif;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: 0.7rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #856404;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+.success-message {
+  background: linear-gradient(135deg, #833dd0 0%, #833dd0 100%);
+  border: 1px solid #10b981;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  color: #065f46;
+  font-size: 0.875rem;
+  text-align: center;
+  display: none;
+}
+
+/* ==============================
+   🔹 BOTÕES
+============================== */
+.login-button {
+  font-family: Nunito Sans, sans-serif;
+  width: 100%;
+  background: linear-gradient(90deg, #833dd0, #833dd0);
+  border: none;
+  padding: 0.9rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.login-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ==============================
+   🔹 LINKS
+============================== */
+.voltar-login {
+  color: #6b7280;
+  margin-top: 1.5rem;
+  font-family: Nunito Sans, sans-serif;
+  text-align: center;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.voltar-login a {
+    font-family: Nunito Sans, sans-serif;
+    color: #7c3aed;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.voltar-login a:hover {
+  text-decoration: underline;
+}
+
+/* ==============================
+   🔹 RESPONSIVIDADE
+============================== */
+@media (max-width: 768px) {
+  .login-card {
+    margin: 0 auto; /* garante centralização horizontal no mobile */
+  }
+}
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+  
+  .welcome-text {
+    font-size: 1.75rem;
+  }
+}
+
+/* ==============================
+   🔹 NEWSLETTER / PAGAMENTOS
+============================== */
+.newsletter {
+  margin-top: 15px;
+}
+
+.newsletter h3 {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.newsletter-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 6px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.newsletter-form input::placeholder {
+  color: #ccc;
+}
+
+.newsletter-form button {
+  background: #883fd8;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  background: #fab60b;
+}
+
+.payment-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.payment-icons img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ==============================
+   🔹 DARK MODE (usa variáveis globais de cabecalho)
+============================== */
+html.dark body {
+  background: var(--bg-app) !important;
+  color: var(--text-primary);
+}
+
+html.dark .login-card {
+  background: var(--bg-surface) !important;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+html.dark .welcome-text { color: var(--text-primary); }
+html.dark .welcome-subtitle { color: var(--text-secondary); }
+
+html.dark .input-container .form-input {
+  background: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+html.dark .input-container .form-input::placeholder { color: #ffffff; opacity: 0.85; }
+html.dark .input-container .form-label { color: var(--text-secondary); }
+
+html.dark .enviar-link {
+  background: #121212;
+  border: 1px solid #333333;
+  color: var(--text-secondary);
+}
+
+html.dark .success-message {
+  background: linear-gradient(135deg, #833dd0 0%, #833dd0 100%);
+  border: 1px solid #10b981;
+  color: #ffffff;
+}
+
+html.dark .voltar-login { color: var(--text-secondary); }
+html.dark .voltar-login a { color: var(--link); }
+html.dark .voltar-login a:hover { color: var(--link-hover); }
+
+html.dark .login-button {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+}

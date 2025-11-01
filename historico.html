@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Produtos | Roxinho Shop</title>
+
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/historico.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Placeholder para Header -->
+  <div id="header-placeholder"></div>
+
+  <main class="container-historico">
+    <section class="historico-section" aria-labelledby="titulo-historico">
+      <header class="cabecalho-historico">
+        <h1 id="titulo-historico">Histórico de Produtos</h1>
+        <p class="subtitulo-historico">Veja seus últimos produtos visualizados</p>
+      </header>
+
+      <div id="estadoVazio" class="estado-vazio" hidden>
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <h2>Sem itens no histórico</h2>
+        <p>Você ainda não visualizou nenhum produto.</p>
+        <a href="/produtos" class="btn-primario">Explorar produtos</a>
+      </div>
+
+      <ul id="listaHistorico" class="lista-historico" aria-live="polite" aria-busy="false"></ul>
+    </section>
+  </main>
+
+  <!-- Placeholder para Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="/js/config.js"></script>
+  <script src="/js/historico.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  <script>
+fetch('/cabecalho-rodape.html')
+      .then(response => response.text())
+      .then(data => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+
+        const header = doc.querySelector('nav.cabecalho');
+        const categorias = doc.querySelector('.barra-categorias');
+        const footer = doc.querySelector('footer.rodape');
+
+        if (header) document.getElementById('header-placeholder').appendChild(header);
+        if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+        if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+      });
+  </script>
+</body>
+</html>

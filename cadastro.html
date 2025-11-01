@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastre-se | Roxinho Shop</title>
+
+    <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/cadastro.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body class="pagina-cadastro">
+  <!-- Placeholder para Header -->
+  <div id="header-placeholder"></div>
+  
+  <main class="container">
+    <section class="auth-container" aria-label="Cadastre-se">
+      <aside class="auth-aside">
+        <div class="auth-banner" aria-hidden="true">
+    <img src="/imagens/cadastro-banner.png" alt="" />
+        </div>
+      </aside>
+      <div class="auth-content">
+    <div class="secao-cadastro">
+      <form class="cartao-cadastro" id="formularioCadastro" novalidate>
+        <h2 class="texto-titulo">Cadastre-se</h2>
+        <p class="texto-subtitulo">Preencha seus dados para começar</p>
+
+        <!-- Nome e Sobrenome -->
+        <div class="linha-formulario">
+          <div class="grupo-formulario">
+            <div class="floating-label-container">
+              <input type="text" id="nome" name="nome" class="entrada-formulario" placeholder=" " autocomplete="given-name" required aria-describedby="erro-nome">
+              <label for="nome" class="rotulo-formulario floating-label">Nome <span class="required">*</span></label>
+            </div>
+            <div id="erro-nome" class="apenas-leitura-tela" aria-live="polite"></div>
+          </div>
+          
+          <div class="grupo-formulario">
+            <div class="floating-label-container">
+              <input type="text" id="sobrenome" name="sobrenome" class="entrada-formulario" placeholder=" " autocomplete="family-name" required aria-describedby="erro-sobrenome">
+              <label for="sobrenome" class="rotulo-formulario floating-label">Sobrenome <span class="required">*</span></label>
+            </div>
+            <div id="erro-sobrenome" class="apenas-leitura-tela" aria-live="polite"></div>
+          </div>
+        </div>
+        
+        <!-- E-mail -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="email" id="email" name="email" class="entrada-formulario" placeholder=" " autocomplete="email" required aria-describedby="erro-email">
+            <label for="email" class="rotulo-formulario floating-label">E-mail <span class="required">*</span></label>
+          </div>
+          <div id="erro-email" class="apenas-leitura-tela" aria-live="polite"></div>
+        </div>
+        
+        <!-- Senha -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="password" id="senha" name="senha" class="entrada-formulario" placeholder=" " autocomplete="new-password" required aria-describedby="erro-senha">
+            <label for="senha" class="rotulo-formulario floating-label">Senha <span class="required">*</span></label>
+            <button type="button" class="toggle-password" id="toggleSenhaCadastro" aria-label="Mostrar senha">
+              <span class="icon-eye" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+              <span class="icon-eye-off" aria-hidden="true"><i class="fa-solid fa-eye-slash"></i></span>
+            </button>
+          </div>
+          
+          <!-- Feedback da senha -->
+          <div id="feedback-senha" class="feedback-senha">
+            <div id="indicador-senha-container" class="indicador-senha-container">
+              <div class="barra-forca-senha">
+                <div id="progresso-senha" class="progresso-forca-senha"></div>
+              </div>
+              <div class="texto-forca-senha">
+                <span id="nivel-senha" class="nivel-forca"></span>
+                <span id="pontuacao-senha" class="pontuacao-forca"></span>
+              </div>
+            </div>
+            <div id="aviso-senha-curta" class="aviso-senha-curta">
+              <span class="icone-aviso"></span>
+              <span>Mínimo 8 caracteres — números e símbolos são opcionais</span>
+            </div>
+          </div>
+          
+          <div id="erro-senha" class="apenas-leitura-tela" aria-live="polite"></div>
+        </div>
+        
+        <!-- Confirmar Senha -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="password" id="confirmarSenha" name="confirmarSenha" class="entrada-formulario" placeholder=" " autocomplete="new-password" required aria-describedby="erro-confirmar-senha">
+            <label for="confirmarSenha" class="rotulo-formulario floating-label">Confirmar Senha <span class="required">*</span></label>
+            <button type="button" class="toggle-password" id="toggleConfirmarSenha" aria-label="Mostrar confirmação de senha">
+              <span class="icon-eye" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+              <span class="icon-eye-off" aria-hidden="true"><i class="fa-solid fa-eye-slash"></i></span>
+            </button>
+          </div>
+          <div id="erro-confirmar-senha" class="apenas-leitura-tela" aria-live="polite"></div>
+        </div>
+        
+        <!-- Botão de cadastro -->
+        <button type="submit" class="botao-cadastro" id="botaoCadastro">
+          <span>Cadastre-se</span>
+        </button>
+        
+        <!-- Link para login -->
+        <p class="link-login">
+          Já tem uma conta? 
+        <a href="/login">Fazer login</a>
+        </p>
+      </form>
+    </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="/js/config.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  <script src="/js/cadastro.js"></script>
+  
+  <script>
+fetch('/cabecalho-rodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+  </script>
+
+    </body>
+</html>

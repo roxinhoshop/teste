@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fazer login | Roxinho Shop</title>
+
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/login.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Placeholder para Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Conteúdo Login -->
+  <main class="container">
+    <section class="auth-container" aria-label="Acesso à conta">
+      <aside class="auth-aside">
+        <div class="auth-banner" aria-hidden="true">
+    <img src="/imagens/login-banner.png" alt="" />
+        </div>
+      </aside>
+      <div class="auth-content">
+      <div class="login-section">
+      <form class="login-card" id="formularioLogin" novalidate>
+        <h2 class="welcome-text">Fazer login</h2>
+        <p class="welcome-subtitle">Bem-vindo à Roxinho Shop! Por favor, insira seus dados</p>
+
+        <!-- E-mail -->
+        <div class="form-group">
+          <input type="email" id="email" class="form-input" placeholder=" " required aria-describedby="erro-email">
+          <label class="floating-label" for="email">E-mail <span class="required">*</span></label>
+          <p id="erro-email" class="error-message" role="alert" aria-live="polite"></p>
+        </div>
+
+        <!-- Senha -->
+        <div class="form-group">
+          <input type="password" id="senha" class="form-input" placeholder=" " required aria-describedby="erro-senha">
+          <label class="floating-label" for="senha">Senha <span class="required">*</span></label>
+          <button type="button" class="toggle-password" id="toggleSenhaLogin" aria-label="Mostrar senha">
+            <span class="icon-eye" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+            <span class="icon-eye-off" aria-hidden="true"><i class="fa-solid fa-eye-slash"></i></span>
+          </button>
+          <p id="erro-senha" class="error-message" role="alert" aria-live="polite"></p>
+        </div>
+
+        <div class="forgot-password">
+        <a href="/redefinir-senha">Esqueceu sua senha?</a>
+        </div>
+
+        
+
+        <button type="submit" class="login-button" id="botaoLogin">
+          <span>Entrar</span>
+        </button>
+
+        <!-- Login com Google -->
+        <div id="googleBtn" class="google-btn"></div>
+
+        <!-- Link para cadastro -->
+        <p class="register-link">
+          Não tem uma conta ainda? 
+            <a href="/cadastro">Cadastre-se</a>
+        </p>
+      </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+    <!-- Placeholder para Footer -->
+  <div id="footer-placeholder"></div>
+
+
+  <!-- Scripts -->
+  <script src="/js/config.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  <script src="/js/login.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <script>
+fetch('/cabecalho-rodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+    });
+  </script>
+
+</body>
+</html>

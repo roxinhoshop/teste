@@ -1,0 +1,118 @@
+:root {
+  --roxinho: #833dd0;
+  --roxinho-escuro: #7c3aed;
+  --cinza-100: #f7f7fb;
+  --cinza-200: #eef0f4;
+  --cinza-300: #dfe3ea;
+  --cinza-500: #7a869a;
+  --preto: #101828;
+  --sucesso: #16a34a;
+  --perigo: #dc2626;
+}
+
+body { font-family: "Nunito Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
+.vendedores-container { padding: 24px 16px; max-width: 1200px; margin: 0 auto; }
+.cabecalho-secao { margin-bottom: 16px; }
+.titulo-secao { font-size: 1.75rem; font-weight: 800; color: var(--preto); display: flex; align-items: center; gap: .6rem; }
+.titulo-secao.titulo-roxo { color: var(--accent-primary, var(--roxinho)); }
+.subtitulo-secao { color: var(--cinza-500); margin-top: 4px; }
+
+.filtros-secao { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: end; margin: 16px 0 20px; }
+.grupo-filtro { display: flex; flex-direction: column; gap: 6px; }
+.grupo-filtro label { font-size: .85rem; color: #374151; font-weight: 700; }
+.grupo-filtro input, .grupo-filtro select { height: 40px; border-radius: 10px; border: 1px solid var(--cinza-300); padding: 0 12px; outline: none; background: white; }
+.grupo-filtro input:focus, .grupo-filtro select:focus { border-color: var(--roxinho); box-shadow: 0 0 0 3px rgba(131,61,208,.12); }
+
+.tabela-wrapper { width: 100%; overflow-x: auto; background: white; border: 1px solid var(--cinza-300); border-radius: 12px; box-shadow: 0 2px 10px rgba(16,24,40,.04); }
+.tabela-vendedores { width: 100%; border-collapse: collapse; min-width: 820px; }
+.tabela-vendedores thead th { position: sticky; top: 0; background: var(--cinza-100); border-bottom: 1px solid var(--cinza-300); font-size: .9rem; text-align: left; padding: 12px; color: #344054; cursor: pointer; white-space: nowrap; }
+.tabela-vendedores thead th:last-child { cursor: default; }
+.tabela-vendedores tbody td { border-bottom: 1px solid var(--cinza-200); padding: 12px; color: #1f2937; font-size: .95rem; }
+.tabela-vendedores tbody tr:hover { background: #fafafa; }
+
+.status-badge { display: inline-flex; align-items: center; gap: .4rem; padding: 4px 10px; border-radius: 999px; font-size: .8rem; font-weight: 800; letter-spacing: .02em; }
+.status-ativo { background: #ecfdf5; color: #065f46; border: 1px solid #bbf7d0; }
+.status-inativo { background: #fef2f2; color: #7f1d1d; border: 1px solid #fecaca; }
+.status-pendente { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+
+.acoes { display: inline-flex; gap: 8px; }
+.btn { height: 34px; border-radius: 8px; padding: 0 12px; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; }
+.btn-primario { background: var(--roxinho); color: white; }
+.btn-primario:hover { background: var(--roxinho-escuro); }
+.btn-secundario { background: white; color: var(--preto); border-color: var(--cinza-300); }
+.btn-secundario:hover { border-color: var(--roxinho); color: var(--roxinho); }
+.btn-perigo { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+.btn-perigo:hover { background: #fecaca; color: #7f1d1d; }
+
+.paginacao { display: flex; justify-content: center; align-items: center; gap: 6px; padding: 12px; }
+.paginacao button { border: 1px solid var(--cinza-300); background: white; padding: 6px 12px; border-radius: 8px; cursor: pointer; color: #000; }
+.paginacao button.ativo { background: var(--roxinho); color: white; border-color: var(--roxinho); }
+.paginacao button:disabled { opacity: .5; cursor: not-allowed; }
+/* Info de página (light/dark) */
+.paginacao .info-pagina { color: #101828; font-weight: 700; margin-right: 8px; }
+body.dark .paginacao .info-pagina { color: #e5e7eb; }
+
+/* Abas de status (segmented control) */
+.tabs-status { display: flex; gap: 8px; flex-wrap: wrap; }
+.tabs-status .tab-btn { display: inline-flex; align-items: center; gap: 8px; height: 34px; border-radius: 999px; border: 1px solid var(--cinza-300); background: #fff; color: var(--preto); font-weight: 800; padding: 0 14px; cursor: pointer; }
+.tabs-status .tab-btn .badge { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 999px; font-size: .75rem; font-weight: 800; background: var(--cinza-200); color: #344054; padding: 0 6px; }
+.tabs-status .tab-btn.ativa { background: var(--roxinho); border-color: var(--roxinho); color: #fff; }
+.tabs-status .tab-btn.ativa .badge { background: #fff; color: var(--roxinho); }
+
+/* Modal */
+.modal { position: fixed; inset: 0; background: rgba(16,24,40,.48); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
+.modal.visivel { display: flex; }
+.modal-conteudo { width: 100%; max-width: 520px; background: white; border-radius: 14px; border: 1px solid var(--cinza-300); box-shadow: 0 8px 24px rgba(16,24,40,.16); overflow: hidden; }
+.modal-cabecalho { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--cinza-300); }
+.modal-cabecalho h3 { color: #000; }
+.modal-corpo { padding: 16px; display: grid; gap: 12px; }
+.modal-rodape { padding: 12px 16px; display: flex; justify-content: flex-end; gap: 8px; border-top: 1px solid var(--cinza-300); }
+.btn-fechar { border: none; background: transparent; font-size: 1.1rem; cursor: pointer; color: #475467; }
+.campo { display: grid; gap: 6px; }
+.campo input, .campo select { height: 40px; border-radius: 10px; border: 1px solid var(--cinza-300); padding: 0 12px; }
+/* Labels de todos os modais (light/dark) */
+.modal .campo label { color: #000; font-weight: 700; }
+body.dark .modal .campo label { color: #e5e7eb; }
+
+/* Ajustes visuais adicionais da paginação em usuários */
+.paginacao .pontos { color: #101828; font-weight: 700; }
+body.dark .paginacao .pontos { color: #e5e7eb; }
+
+/* Responsividade dos filtros */
+@media (max-width: 900px) {
+  .filtros-secao { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .filtros-secao { grid-template-columns: 1fr; }
+}
+
+/* Mobile tweaks para modais */
+@media (max-width: 560px) {
+  .modal-conteudo { max-width: 96vw; }
+  .modal-cabecalho { padding: 12px 14px; }
+  .modal-corpo { padding: 12px; }
+}
+
+/* ===== Tema Escuro (Vendedores/Admin) ===== */
+body.dark .titulo-secao { color: #e5e7eb; }
+body.dark .titulo-secao.titulo-roxo { color: var(--accent-primary, #883fd8); }
+body.dark .subtitulo-secao { color: #9ca3af; }
+body.dark .modal-cabecalho h3 { color: #e5e7eb; }
+body.dark .grupo-filtro label { color: #cbd5e1; }
+body.dark .grupo-filtro input, body.dark .grupo-filtro select { background: #000000; color: #e5e7eb; border-color: #334155; }
+body.dark .grupo-filtro input:focus, body.dark .grupo-filtro select:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.18); }
+body.dark .tabela-wrapper { background: #000000; border-color: #2c2c2f; box-shadow: 0 2px 10px rgba(0,0,0,0.35); }
+body.dark .tabela-vendedores thead th { background: #000000; border-bottom-color: #2c2c2f; color: #e5e7eb; }
+body.dark .tabela-vendedores tbody td { border-bottom-color: #1f2937; color: #e5e7eb; }
+body.dark .tabela-vendedores tbody tr:hover { background: #000000; }
+body.dark .btn-secundario { background: #000000; color: #e5e7eb; border-color: #334155; }
+body.dark .btn-secundario:hover { border-color: #7c3aed; color: #a78bfa; }
+body.dark .paginacao button { background: #000000; border-color: #334155; color: #e5e7eb; }
+body.dark .paginacao button.ativo { background: #883fd8; border-color: #883fd8; color: #fff; }
+
+/* Tabs dark mode */
+body.dark .tabs-status .tab-btn { background: #000000; color: #e5e7eb; border-color: #334155; }
+body.dark .tabs-status .tab-btn .badge { background: #111827; color: #e5e7eb; }
+body.dark .tabs-status .tab-btn.ativa { background: #883fd8; border-color: #883fd8; color: #fff; }
+body.dark .tabs-status .tab-btn.ativa .badge { background: #000000; color: #a78bfa; }

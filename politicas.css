@@ -1,0 +1,124 @@
+/* ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== */
+/* Desenvolvido por Gabriel (gabwvr) */
+/* Este arquivo contém estilos para [SEÇÃO] */
+/* Cores principais: Roxo (#7c3aed) e Amarelo (#eab308) */
+
+
+/* Estilo base */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito Sans", sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Conteúdo principal */
+main.politicas {
+  flex: 1;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Títulos principais */
+.politicas h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #222;
+  margin-bottom: 25px;
+}
+
+/* Títulos de capítulos */
+.politicas h2 {
+  font-size: 1.4rem;
+  color: #444;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-left: 5px solid #8b5cf6;
+  padding-left: 10px;
+}
+
+/* Artigos */
+.politicas article {
+  margin-bottom: 20px;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+/* Texto (light mode): preto para conteúdo principal */
+.politicas article,
+.politicas ul,
+.politicas ul li,
+.politicas p {
+  color: #000000;
+}
+
+/* Numeração e destaques */
+.politicas strong,
+.politicas b {
+  color: #222;
+}
+
+.politicas ul {
+  margin: 15px 0 20px 20px;
+  padding-left: 20px;
+}
+
+.politicas ul li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+/* Rodapé fixado no fim */
+footer.rodape {
+  margin-top: auto;
+}
+
+/* ===== Dark Mode (html.dark) ===== */
+html.dark body {
+  background-color: #0b0b0b;
+  color: #e5e7eb;
+}
+html.dark main.politicas {
+  background: #0b0b0b;
+  border: 1px solid #2c2c2f;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+}
+html.dark .politicas h1 {
+  color: #ffffff;
+}
+html.dark .politicas h2 {
+  color: #e5e7eb;
+  border-left-color: #833dd0;
+}
+html.dark .politicas article,
+html.dark .politicas ul,
+html.dark .politicas ul li,
+html.dark .politicas strong,
+html.dark .politicas b,
+html.dark .politicas p {
+  color: #ffffff;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  main.politicas {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .politicas h1 {
+    font-size: 1.6rem;
+  }
+
+  .politicas h2 {
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roxinho Shop - Os melhores preços em eletrônicos!</title>
+
+  <!-- Ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+  
+  <!-- Fonte -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/chatbot.css">
+</head>
+
+  <!-- ======================= CABEÇALHO ======================= -->
+  <nav class="cabecalho">
+    <div class="container-cabecalho">
+      <!-- LOGO -->
+      <a class="logo" href="/">
+        <img src="/imagens/logos/logo-cabecalho.png" alt="Roxinho Shop" class="logo-imagem">
+      </a>
+
+      <!-- BARRA DE PESQUISA CENTRALIZADA -->
+      <form class="caixa-pesquisa" role="search" id="form-busca-global" action="/produtos" method="GET">
+        <input
+          type="search"
+          id="campo-busca-global"
+          name="busca"
+          data-buscaInit="1"
+          placeholder="Buscar produtos, marcas ou categorias..."
+          autocomplete="off"
+          aria-label="Buscar produtos, marcas ou categorias"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-controls="sugestoes-busca"
+          aria-expanded="false"
+        >
+        <button type="button" id="botao-limpar-busca" class="botao-limpar-busca" aria-label="Limpar busca" title="Limpar">&times;</button>
+        <button type="submit" id="botao-busca-global" class="botao-busca" aria-label="Pesquisar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <!-- Dropdown de sugestões -->
+        <div id="sugestoes-busca" class="sugestoes-busca" role="listbox" aria-label="Sugestões de busca" aria-live="polite" style="display: none;">
+          <!-- Sugestões serão inseridas aqui via JavaScript -->
+        </div>
+        <!-- Preview de produto previsto pela intenção -->
+        <div id="busca-preview" class="busca-preview" aria-live="polite" aria-label="Prévia de produto" style="display: none;"></div>
+      </form>
+      
+      <!-- Ações à direita: botão histórico original + caixa de login -->
+      <div class="icones">
+        <!-- Botão original transferido da página de login -->
+            <a href="/historico" class="history-button" aria-label="Ver histórico de produtos">
+          <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+        </a>
+
+        <!-- Botão de alternância de modo escuro -->
+        <button type="button" id="btnDarkMode" class="dark-toggle" aria-label="Alternar modo escuro" title="Alternar modo escuro">
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+
+        <!-- 🔹 Caixinha de Login -->
+        <div class="caixa-entre" id="caixa-login">
+          <img src="/imagens/logos/avatar-roxo.svg" alt="Avatar" class="avatar" id="avatar-usuario">
+          <div class="texto" id="texto-login">
+            <strong id="status-login">Entre</strong>
+            <br><span id="subtexto-login">Iniciar Sessão</span>
+          </div>
+          <i class="fa-solid fa-arrow-right seta" id="seta-login"></i>
+          <!-- Dropdown para não autenticados: Login Cliente / Login Vendedor -->
+          <div id="dropdown-login" class="dropdown-usuario dropdown-login" style="display: none;">
+            <div class="opcoes-usuario">
+            <a href="/login"><i class="fa-solid fa-user"></i> Login Cliente</a>
+            <a href="/login-vendedor"><i class="fa-solid fa-store"></i> Login Vendedor</a>
+            </div>
+          </div>
+          <!-- Dropdown do usuário logado -->
+          <div id="dropdown-usuario" class="dropdown-usuario" style="display: none;">
+            <div class="opcoes-usuario">
+                    <a href="/configuracoes"><i class="fa-solid fa-gear"></i> Configurações</a>
+              <a href="#" id="botao-logout" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- ======================= BARRA DE CATEGORIAS ======================= -->
+<div class="barra-categorias" role="navigation" aria-label="Categorias">
+            <a class="btn-quero-vender" href="/cadastro-vendedor" aria-label="Quero vender na Roxinho Shop">
+      <i class="fa-solid fa-store"></i>
+      <span>Quero Vender</span>
+    </a>
+    <ul id="listaCategorias">
+        <li class="dropdown mega-dropdown">
+            <a href="#"><i class="fa-solid fa-bars"></i> DEPARTAMENTOS</a>
+            <div class="mega-menu">
+              <div class="mega-menu-container">
+                <!-- Hardware -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-microchip"></i> Hardware</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=Hardware&subcategoria=Processadores">Processadores</a></li>
+                    <li><a href="/produtos?categoria=Hardware&subcategoria=Placas de Vídeo">Placas de Vídeo</a></li>
+                    <li><a href="/produtos?categoria=Hardware&subcategoria=Memórias RAM">Memórias RAM</a></li>
+                    <li><a href="/produtos?categoria=Hardware&subcategoria=Placas Mãe">Placas Mãe</a></li>
+                    <li><a href="/produtos?categoria=Hardware&subcategoria=Fontes">Fontes</a></li>
+                    <li><a href="/produtos?categoria=Hardware&subcategoria=Coolers">Coolers</a></li>
+                    <li><a href="/produtos?categoria=Hardware&subcategoria=Gabinetes">Gabinetes</a></li>
+                    <li><a href="/produtos?categoria=Hardware&subcategoria=Armazenamento">Armazenamento</a></li>
+                    <li><a href="/produtos?categoria=Hardware&subcategoria=Placas de Som">Placas de Som</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- Periféricos -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-keyboard"></i> Periféricos</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=Periféricos&subcategoria=Teclados">Teclados</a></li>
+                    <li><a href="/produtos?categoria=Periféricos&subcategoria=Mouses">Mouses</a></li>
+                    <li><a href="/produtos?categoria=Periféricos&subcategoria=Headsets">Headsets</a></li>
+                    <li><a href="/produtos?categoria=Periféricos&subcategoria=Webcams">Webcams</a></li>
+                    <li><a href="/produtos?categoria=Periféricos&subcategoria=Microfones">Microfones</a></li>
+                    <li><a href="/produtos?categoria=Periféricos&subcategoria=Mousepads">Mousepads</a></li>
+                    <li><a href="/produtos?categoria=Periféricos&subcategoria=Controles">Controles</a></li>
+                    <li><a href="/produtos?categoria=Periféricos&subcategoria=Caixas de Som">Caixas de Som</a></li>
+                    <li><a href="/produtos?categoria=Periféricos&subcategoria=Monitores">Monitores</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- Computadores -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-desktop"></i> Computadores</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=Computadores&subcategoria=PCs%20Gamer">PCs Gamer</a></li>
+                    <li><a href="/produtos?categoria=Computadores&subcategoria=Workstations">Workstations</a></li>
+                    <li><a href="/produtos?categoria=Computadores&subcategoria=All-in-One">All-in-One</a></li>
+                    <li><a href="/produtos?categoria=Computadores&subcategoria=Mini%20PCs">Mini PCs</a></li>
+                    <li><a href="/produtos?categoria=Computadores&subcategoria=Notebooks">Notebooks</a></li>
+                    <li><a href="/produtos?categoria=Computadores&subcategoria=Chromebooks">Chromebooks</a></li>
+                    <li><a href="/produtos?categoria=Computadores&subcategoria=Ultrabooks">Ultrabooks</a></li>
+                    <li><a href="/produtos?categoria=Computadores&subcategoria=Tablets">Tablets</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- Games -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-gamepad"></i> Games</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=Games&subcategoria=Consoles">Consoles</a></li>
+                    <li><a href="/produtos?categoria=Games&subcategoria=Jogos%20PC">Jogos PC</a></li>
+                    <li><a href="/produtos?categoria=Games&subcategoria=Jogos%20Console">Jogos Console</a></li>
+                    <li><a href="/produtos?categoria=Games&subcategoria=Acessórios%20Gaming">Acessórios Gaming</a></li>
+                    <li><a href="/produtos?categoria=Games&subcategoria=Cadeiras%20Gamer">Cadeiras Gamer</a></li>
+                    <li><a href="/produtos?categoria=Games&subcategoria=Mesas%20Gamer">Mesas Gamer</a></li>
+                    <li><a href="/produtos?categoria=Games&subcategoria=Controles">Controles</a></li>
+                    <li><a href="/produtos?categoria=Games&subcategoria=Volantes">Volantes</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- Celular & Smartphone -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-mobile-screen-button"></i> Celular & Smartphone</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=Celular%20%26%20Smartphone&subcategoria=Smartphones">Smartphones</a></li>
+                    <li><a href="/produtos?categoria=Celular%20%26%20Smartphone&subcategoria=Capas%20e%20Pel%C3%ADculas">Capas e Películas</a></li>
+                    <li><a href="/produtos?categoria=Celular%20%26%20Smartphone&subcategoria=Carregadores">Carregadores</a></li>
+                    <li><a href="/produtos?categoria=Celular%20%26%20Smartphone&subcategoria=Fones%20de%20Ouvido">Fones de Ouvido</a></li>
+                    <li><a href="/produtos?categoria=Celular%20%26%20Smartphone&subcategoria=Power%20Banks">Power Banks</a></li>
+                    <li><a href="/produtos?categoria=Celular%20%26%20Smartphone&subcategoria=Suportes">Suportes</a></li>
+                    <li><a href="/produtos?categoria=Celular%20%26%20Smartphone&subcategoria=Smartwatches">Smartwatches</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- TV & Áudio -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-tv"></i> TV & Áudio</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=TV%20%26%20Áudio&subcategoria=Smart%20TVs">Smart TVs</a></li>
+                    <li><a href="/produtos?categoria=TV%20%26%20Audio&subcategoria=TVs%204K">TVs 4K</a></li>
+                    <li><a href="/produtos?categoria=TV%20%26%20Áudio&subcategoria=TVs%208K">TVs 8K</a></li>
+                    <li><a href="/produtos?categoria=TV%20%26%20Áudio&subcategoria=Suportes%20TV">Suportes TV</a></li>
+                    <li><a href="/produtos?categoria=TV%20%26%20Áudio&subcategoria=Conversores">Conversores</a></li>
+                    <li><a href="/produtos?categoria=TV%20%26%20Áudio&subcategoria=Antenas">Antenas</a></li>
+                    <li><a href="/produtos?categoria=TV%20%26%20Áudio&subcategoria=Soundbars">Soundbars</a></li>
+                    <li><a href="/produtos?categoria=TV%20%26%20Áudio&subcategoria=Home%20Theater">Home Theater</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- Áudio -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-headphones"></i> Áudio</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=Áudio&subcategoria=Fones%20de%20Ouvido">Fones de Ouvido</a></li>
+                    <li><a href="/produtos?categoria=Áudio&subcategoria=Caixas%20de%20Som">Caixas de Som</a></li>
+                    <li><a href="/produtos?categoria=Áudio&subcategoria=Soundbars">Soundbars</a></li>
+                    <li><a href="/produtos?categoria=Áudio&subcategoria=Amplificadores">Amplificadores</a></li>
+                    <li><a href="/produtos?categoria=Áudio&subcategoria=Microfones">Microfones</a></li>
+                    <li><a href="/produtos?categoria=Áudio&subcategoria=Interfaces%20de%20Áudio">Interfaces de Áudio</a></li>
+                    <li><a href="/produtos?categoria=Áudio&subcategoria=Monitores%20de%20Referência">Monitores de Referência</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- Espaço Gamer -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-chair"></i> Espaço Gamer</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=Espaço%20Gamer&subcategoria=Cadeiras%20Gamer">Cadeiras Gamer</a></li>
+                    <li><a href="/produtos?categoria=Espaço%20Gamer&subcategoria=Mesas%20Gamer">Mesas Gamer</a></li>
+                    <li><a href="/produtos?categoria=Espaço%20Gamer&subcategoria=Suportes%20Monitor">Suportes Monitor</a></li>
+                    <li><a href="/produtos?categoria=Espaço%20Gamer&subcategoria=Iluminação%20RGB">Iluminação RGB</a></li>
+                    <li><a href="/produtos?categoria=Espaço%20Gamer&subcategoria=Decoração">Decoração</a></li>
+                    <li><a href="/produtos?categoria=Espaço%20Gamer&subcategoria=Organizadores">Organizadores</a></li>
+                    <li><a href="/produtos?categoria=Espaço%20Gamer&subcategoria=Tapetes">Tapetes</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- Casa Inteligente -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-house-signal"></i> Casa Inteligente</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=Casa%20Inteligente&subcategoria=Assistentes%20Virtuais">Assistentes Virtuais</a></li>
+                    <li><a href="/produtos?categoria=Casa%20Inteligente&subcategoria=Câmeras%20Segurança">Câmeras Segurança</a></li>
+                    <li><a href="/produtos?categoria=Casa%20Inteligente&subcategoria=Lâmpadas%20Smart">Lâmpadas Smart</a></li>
+                    <li><a href="/produtos?categoria=Casa%20Inteligente&subcategoria=Tomadas%20Smart">Tomadas Smart</a></li>
+                    <li><a href="/produtos?categoria=Casa%20Inteligente&subcategoria=Sensores">Sensores</a></li>
+                    <li><a href="/produtos?categoria=Casa%20Inteligente&subcategoria=Fechaduras%20Digitais">Fechaduras Digitais</a></li>
+                    <li><a href="/produtos?categoria=Casa%20Inteligente&subcategoria=Termostatos">Termostatos</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- Energia -->
+                <div class="categoria-coluna">
+                  <h4><i class="fa-solid fa-bolt"></i> Energia</h4>
+                  <div class="subcategorias-grid">
+                    <div class="subcategoria-grupo">
+                      <h5>Subcategorias</h5>
+                      <ul>
+                    <li><a href="/produtos?categoria=Energia&subcategoria=No-breaks">No-breaks</a></li>
+                    <li><a href="/produtos?categoria=Energia&subcategoria=Estabilizadores">Estabilizadores</a></li>
+                    <li><a href="/produtos?categoria=Energia&subcategoria=Filtros%20de%20Linha">Filtros de Linha</a></li>
+                    <li><a href="/produtos?categoria=Energia&subcategoria=Baterias">Baterias</a></li>
+                    <li><a href="/produtos?categoria=Energia&subcategoria=Inversores">Inversores</a></li>
+                    <li><a href="/produtos?categoria=Energia&subcategoria=Carregadores">Carregadores</a></li>
+                    <li><a href="/produtos?categoria=Energia&subcategoria=Cabos%20de%20Força">Cabos de Força</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                
+              </div>
+            </div>
+        </li>
+                <li><a href="/produtos">Produtos</a></li>
+                <li><a href="/produtos?categoria=Hardware">Hardware</a></li>
+                <li><a href="/produtos?categoria=Giftcards">Giftcards</a></li>
+                <li><a href="/produtos?categoria=Perif%C3%A9ricos">Periféricos</a></li>
+                <li><a href="/produtos?categoria=Celular%20%26%20Smartphone">Celular & Smartphone</a></li>
+    </ul>
+</div>
+
+  <!-- ======================= CONTEÚDO ======================= -->
+  <main class="conteudo">
+    <!-- Aqui você coloca o conteúdo específico de cada página -->
+  </main>
+
+  <!-- ======================= RODAPÉ ======================= -->
+  <footer class="rodape" role="contentinfo" aria-labelledby="footer-title">
+    <h2 id="footer-title" class="sr-only">Rodapé</h2>
+    <div class="rodape-container">
+
+      <!-- Identidade + Descrição + Redes -->
+      <section class="rodape-intro rodape-coluna" aria-label="Identidade">
+        <div class="rodape-logo">
+  <img src="/imagens/logos/logo-rodapé.png" alt="Logo Roxinho Shop" class="logo">
+        </div>
+        <p class="rodape-descricao">
+          Economizar nunca foi tão leve.
+        </p>
+        <div class="rodape-redes">
+          <a href="https://www.instagram.com/roxinhoshop" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@roxinhoshop" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </section>
+
+      <!-- Coluna: Links Rápidos -->
+      <nav class="rodape-links rodape-coluna" aria-label="Links Rápidos">
+        <h3>Links Rápidos</h3>
+        <ul>
+                <li><a href="/">Início</a></li>
+                <li><a href="/produtos">Produtos</a></li>
+                <li><a href="/quem-somos">Sobre Nós</a></li>
+                <li><a href="/contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <!-- Coluna: Minha Conta -->
+      <nav class="rodape-conta rodape-coluna" aria-label="Minha Conta">
+        <h3>Minha Conta</h3>
+        <ul>
+                <li><a href="/configuracoes" id="link-configuracoes-footer" style="display:none">Configurações</a></li>
+                <li><a href="/historico" id="link-historico-footer" style="display:none">Histórico</a></li>
+                <li><a href="/login">Login</a></li>
+        </ul>
+      </nav>
+
+      <!-- Coluna: Informações -->
+      <nav class="rodape-info rodape-coluna" aria-label="Informações">
+        <h3>Informações</h3>
+        <ul>
+                <li><a href="/termos">Termos e Condições</a></li>
+                <li><a href="/politicas">Políticas de Privacidade</a></li>
+        </ul>
+      </nav>
+
+            <p class="copy">Todos os direitos reservados <a href="/" class="copy-brand">Roxinho Shop</a> © 2025</p>
+    </div>
+  </footer>
+
+    
+
+  <!-- JS -->
+  <script>
+// ==================== POP-UP GLOBAL DO SITE (alert/confirm/prompt) ====================
+(function() {
+  function ensureContainer() {
+    if (document.querySelector('.site-popup-overlay')) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'site-popup-overlay';
+    overlay.style.display = 'none';
+    overlay.innerHTML = `
+      <div class="site-popup" role="dialog" aria-modal="true">
+        <div class="site-popup-header">
+          <span class="site-popup-title">Aviso</span>
+          <button class="site-popup-close" aria-label="Fechar">&times;</button>
+        </div>
+        <div class="site-popup-content"></div>
+        <div class="site-popup-actions"></div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+  }
+
+  function show(opts) {
+    ensureContainer();
+    const overlay = document.querySelector('.site-popup-overlay');
+    const modal = overlay.querySelector('.site-popup');
+    const titleEl = modal.querySelector('.site-popup-title');
+    const contentEl = modal.querySelector('.site-popup-content');
+    const actionsEl = modal.querySelector('.site-popup-actions');
+
+    titleEl.textContent = opts.title || 'Aviso';
+    contentEl.innerHTML = opts.message || '';
+    modal.className = 'site-popup ' + (opts.variant || 'info');
+    actionsEl.innerHTML = '';
+
+    const buttons = opts.buttons || [{ label: 'OK', variant: 'primary', value: true }];
+    buttons.forEach(btnDef => {
+      const btn = document.createElement('button');
+      btn.className = 'site-popup-btn ' + (btnDef.variant || 'primary');
+      btn.textContent = btnDef.label;
+      btn.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        if (opts.resolve) opts.resolve(btnDef.value);
+      });
+      actionsEl.appendChild(btn);
+    });
+
+    const closeBtn = modal.querySelector('.site-popup-close');
+    closeBtn.onclick = () => {
+      overlay.style.display = 'none';
+      if (opts.resolve) opts.resolve(false);
+    };
+
+    overlay.onclick = (e) => {
+      if (e.target === overlay) {
+        overlay.style.display = 'none';
+        if (opts.resolve) opts.resolve(false);
+      }
+    };
+
+    overlay.style.display = 'flex';
+  }
+
+  function alertPopup(message, title = 'Aviso', variant = 'info') {
+    return new Promise(resolve => show({ message, title, variant, resolve }));
+  }
+
+  function confirmPopup(message, title = 'Confirmar') {
+    return new Promise(resolve => show({
+      message,
+      title,
+      variant: 'confirm',
+      resolve,
+      buttons: [
+        { label: 'Cancelar', variant: 'ghost', value: false },
+        { label: 'Confirmar', variant: 'primary', value: true }
+      ]
+    }));
+  }
+
+  function promptPopup(message, title = 'Entrada', placeholder = 'Digite aqui...') {
+    return new Promise(resolve => {
+      ensureContainer();
+      const overlay = document.querySelector('.site-popup-overlay');
+      const modal = overlay.querySelector('.site-popup');
+      const titleEl = modal.querySelector('.site-popup-title');
+      const contentEl = modal.querySelector('.site-popup-content');
+      const actionsEl = modal.querySelector('.site-popup-actions');
+
+      titleEl.textContent = title;
+      modal.className = 'site-popup prompt';
+      contentEl.innerHTML = `<p>${message}</p><input class="site-popup-input" placeholder="${placeholder}" autofocus />`;
+      actionsEl.innerHTML = '';
+
+      const btnCancel = document.createElement('button');
+      btnCancel.className = 'site-popup-btn ghost';
+      btnCancel.textContent = 'Cancelar';
+      btnCancel.onclick = () => { overlay.style.display = 'none'; resolve(null); };
+
+      const btnOk = document.createElement('button');
+      btnOk.className = 'site-popup-btn primary';
+      btnOk.textContent = 'OK';
+      btnOk.onclick = () => {
+        const val = modal.querySelector('.site-popup-input').value;
+        overlay.style.display = 'none';
+        resolve(val);
+      };
+
+      actionsEl.append(btnCancel, btnOk);
+
+      const closeBtn = modal.querySelector('.site-popup-close');
+      closeBtn.onclick = () => { overlay.style.display = 'none'; resolve(null); };
+      overlay.onclick = (e) => { if (e.target === overlay) { overlay.style.display = 'none'; resolve(null); } };
+
+      overlay.style.display = 'flex';
+    });
+  }
+
+  window.sitePopup = {
+    alert: alertPopup,
+    confirm: confirmPopup,
+    prompt: promptPopup
+  };
+})();
+
+// ==================== SISTEMA DE BUSCA GLOBAL ====================
+// ===== Envio de histórico com fallback (sendBeacon ou fetch keepalive) =====
+function enviarHistoricoEvento(payload) {
+  try {
+    const API_BASE = window.API_BASE || window.location.origin;
+    const apiOrigin = new URL(API_BASE).origin;
+    const uiOrigin = window.location.origin;
+    const url = `${API_BASE}/api/users/search-history`;
+    // Preferir sendBeacon quando mesma origem, para não bloquear navegação
+    if (navigator.sendBeacon && apiOrigin === uiOrigin) {
+      const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      navigator.sendBeacon(url, blob);
+      return;
+    }
+    // Fallback: fetch com keepalive e credenciais para ambientes cross-origin
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      credentials: 'include',
+      keepalive: true,
+      // sem 'mode: cors' para evitar dependência de CORS
+    }).catch(() => {});
+  } catch (_) {}
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const campoBusca = document.getElementById('campo-busca-global');
+  const botaoBusca = document.getElementById('botao-busca-global');
+  const sugestoesBusca = document.getElementById('sugestoes-busca');
+  const previewEl = document.getElementById('busca-preview');
+  let indiceAtivo = -1;
+  let itensSugestao = [];
+  let timeoutSugestoes;
+  let timeoutPreview;
+  let ultimoTermoAnalise = '';
+
+  async function obterProdutosParaSugestoes() {
+    // Usar lista carregada na página de produtos, se disponível
+    if (Array.isArray(window.produtos) && window.produtos.length) return window.produtos;
+    if (Array.isArray(window.__produtosCache) && window.__produtosCache.length) return window.__produtosCache;
+    try {
+      campoBusca?.setAttribute('aria-busy', 'true');
+      const API_BASE = window.API_BASE || window.location.origin;
+      const resp = await fetch(`${API_BASE}/api/products`);
+      if (!resp.ok) throw new Error(`Status ${resp.status}`);
+      const json = await resp.json();
+      const lista = Array.isArray(json) ? json : (Array.isArray(json?.data) ? json.data : []);
+      window.__produtosCache = lista || [];
+      return window.__produtosCache;
+    } catch (err) {
+      console.error('Erro ao carregar produtos para sugestões:', err);
+      return null;
+    } finally {
+      campoBusca?.setAttribute('aria-busy', 'false');
+    }
+  }
+
+  function executarBusca() {
+    const termo = campoBusca.value.trim();
+    // Validação básica de termo: mínimo 2 caracteres e conter caractere alfanumérico
+    if (!validarTermoBusca(termo)) {
+      campoBusca.setAttribute('aria-invalid', 'true');
+      // Feedback sutil na UI
+      if (sugestoesBusca) {
+        sugestoesBusca.innerHTML = `<div class="mensagem">Digite ao menos 2 caracteres válidos para pesquisar</div>`;
+        sugestoesBusca.style.display = 'block';
+        campoBusca.setAttribute('aria-expanded', 'true');
+      }
+      // Mensagem mais clara via popup
+      try { window.sitePopup && window.sitePopup.alert('Digite ao menos 2 caracteres com letras ou números.', 'Busca inválida'); } catch {}
+      return;
+    }
+
+    // Se já estamos em /produtos (rota limpa), atualizar dinamicamente sem navegação
+    const emProdutos = /\/produtos(\.html)?$/i.test(window.location.pathname);
+    if (emProdutos && typeof window.atualizarBuscaProdutos === 'function') {
+      try { window.atualizarBuscaProdutos(termo); } catch {}
+      return;
+    }
+
+    // Registrar histórico de busca (não bloqueia navegação)
+    try {
+      enviarHistoricoEvento({ term: termo, eventType: 'search' });
+    } catch (_) {}
+
+    // Navegação para a listagem com parâmetro de busca
+    window.location.href = `/produtos?busca=${encodeURIComponent(termo)}`;
+  }
+
+  // ===== Validação de termo de busca =====
+  function validarTermoBusca(termo) {
+    const t = String(termo || '').trim();
+    if (t.length < 2) return false;
+    // Exigir ao menos um caractere alfanumérico
+    return /[a-z0-9á-ú]/i.test(t);
+  }
+
+  // ===== Helpers para preview =====
+  function formatarMoeda(valor) {
+    const n = Number(valor || 0);
+    if (!isFinite(n) || n <= 0) return 'Indisponível';
+    return 'R$ ' + n.toFixed(2).replace('.', ',');
+  }
+
+  // ===== Verificação global de autenticação antes de avaliar =====
+  async function verificarAutenticacaoAntesDeAvaliar() {
+    try {
+      const API_BASE = window.API_BASE || window.location.origin;
+      const resp = await fetch(`${API_BASE}/api/auth/me`, { credentials: 'include' });
+      if (resp && resp.ok) {
+        const data = await resp.json();
+        if (data && (data.success || data.user)) return true;
+      }
+    } catch (_) {}
+    try { window.sitePopup && window.sitePopup.alert('Faça login para avaliar produtos.', 'Autenticação necessária'); } catch {}
+    setTimeout(() => { window.location.href = '/login'; }, 1200);
+    return false;
+  }
+
+  // ===== Toggle de Modo Escuro com persistência =====
+  const btnDarkMode = document.getElementById('btnDarkMode');
+
+  function aplicarTema(tema) {
+    const root = document.documentElement;
+    const body = document.body;
+    const isDark = tema === 'dark';
+    root.classList.toggle('dark', isDark);
+    body.classList.toggle('dark', isDark);
+    const icone = btnDarkMode ? btnDarkMode.querySelector('i') : null;
+    if (icone) {
+      icone.classList.toggle('fa-sun', isDark);
+      icone.classList.toggle('fa-moon', !isDark);
+    }
+    if (btnDarkMode) btnDarkMode.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    try { localStorage.setItem('theme', tema); } catch {}
+  }
+
+  function carregarTemaPreferido() {
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch {}
+    const prefersDark = (typeof window.matchMedia === 'function') && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const tema = saved ? saved : (prefersDark ? 'dark' : 'light');
+    aplicarTema(tema);
+    // Se não houver preferência salva, segue alterações do sistema
+    try {
+      if (!saved && typeof window.matchMedia === 'function') {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        // Alguns navegadores usam addEventListener, outros addListener
+        if (typeof mq.addEventListener === 'function') {
+          mq.addEventListener('change', e => aplicarTema(e.matches ? 'dark' : 'light'));
+        } else if (typeof mq.addListener === 'function') {
+          mq.addListener(e => aplicarTema(e.matches ? 'dark' : 'light'));
+        }
+      }
+    } catch (_) {}
+  }
+
+  if (btnDarkMode && !btnDarkMode.dataset.darkInit) {
+    btnDarkMode.dataset.darkInit = '1';
+    btnDarkMode.addEventListener('click', () => {
+      const atual = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      aplicarTema(atual === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  carregarTemaPreferido();
+  function gerarEstrelas(nota) {
+    const n = Math.max(0, Math.min(5, Number(nota) || 0));
+    const cheias = Math.floor(n);
+    const temMeia = (n - cheias) >= 0.5;
+    let html = '';
+    for (let i = 0; i < cheias; i++) html += '<i class="fas fa-star"></i>';
+    if (temMeia && cheias < 5) html += '<i class="fas fa-star-half-alt"></i>';
+    const restantes = 5 - cheias - (temMeia ? 1 : 0);
+    for (let i = 0; i < restantes; i++) html += '<i class="far fa-star"></i>';
+    return html;
+  }
+
+  function ehURLImagem(u) {
+    return typeof u === 'string' && /^https?:\/\//i.test(u);
+  }
+
+  function obterImagemProduto(produto) {
+    let img = produto?.imagem;
+    try {
+      let imgs = produto?.imagens;
+      if (typeof imgs === 'string') { try { imgs = JSON.parse(imgs); } catch(_){} }
+      if ((!img || !ehURLImagem(img)) && Array.isArray(imgs)) {
+        const cand = imgs.find(u => ehURLImagem(u));
+        if (cand) img = cand;
+      }
+    } catch (_) {}
+if (!img) img = '/imagens/logos/logo-cabecalho.png';
+    return img;
+  }
+
+  function normalizarTexto(s) {
+    return String(s || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s\-\.]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function destacarTokens(texto, tokens) {
+    if (!texto) return '';
+    const t = String(texto);
+    let resultado = t;
+    const uniq = [...new Set(tokens.filter(Boolean))];
+    uniq.forEach(tok => {
+      const esc = tok.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp(`(${esc})`, 'ig');
+      resultado = resultado.replace(re, '<mark>$1</mark>');
+    });
+    return resultado;
+  }
+
+  function pontuarProduto(produto, tokens, termoRaw) {
+    const titulo = produto?.titulo || produto?.nome || '';
+    const marca = produto?.marca || '';
+    const categoria = produto?.categoria || '';
+    const termo = normalizarTexto(termoRaw);
+    const tituloNorm = normalizarTexto(titulo);
+    const marcaNorm = normalizarTexto(marca);
+    const catNorm = normalizarTexto(categoria);
+
+    let score = 0;
+    // exact match do título
+    if (tituloNorm === termo) score += 100;
+    // começa com
+    if (tituloNorm.startsWith(termo)) score += 60;
+    // todas as tokens contidas no título
+    const todasNoTitulo = tokens.every(t => tituloNorm.includes(t));
+    if (todasNoTitulo) score += 40;
+    // presença de marca
+    const temMarca = tokens.some(t => marcaNorm.includes(t));
+    if (temMarca) score += 25;
+    // presença de categoria
+    const temCat = tokens.some(t => catNorm.includes(t));
+    if (temCat) score += 15;
+    // padrões de modelo (ex: rtx 3060, i7 12700k)
+    const temModelo = /(?:rtx|gtx|rx|i3|i5|i7|i9|ryzen|m[1-3]|a\d{2}|\b\w{2,}\d{2,}\b)/i.test(termoRaw);
+    if (temModelo && new RegExp(termoRaw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i').test(titulo)) score += 30;
+    // preço disponível dá leve vantagem
+    const precoML = produto.precoMercadoLivre;
+    const precoAMZ = produto.precoAmazon;
+    if (typeof precoML === 'number' || typeof precoAMZ === 'number') score += 5;
+    return score;
+  }
+
+  function preverIntencao(termo, base) {
+    const termoLower = (termo || '').toLowerCase();
+    const tokens = normalizarTexto(termoLower).split(' ').filter(Boolean);
+    if (!Array.isArray(base) || !base.length || tokens.length === 0) return null;
+
+    let melhor = null;
+    let melhorScore = 0;
+    for (const p of base) {
+      const s = pontuarProduto(p, tokens, termo);
+      if (s > melhorScore) { melhorScore = s; melhor = p; }
+    }
+    // limiar para evitar falsos positivos
+    if (melhorScore >= 60) {
+      return { produto: melhor, score: melhorScore, tokens };
+    }
+    return null;
+  }
+
+  function ocultarPreview() {
+    if (!previewEl) return;
+    previewEl.style.display = 'none';
+    previewEl.innerHTML = '';
+  }
+
+  function renderPreview(pred) {
+    if (!previewEl || !pred) return;
+    const produto = pred.produto;
+    const tokens = pred.tokens || [];
+    const imagem = obterImagemProduto(produto);
+    const precoML = produto.precoMercadoLivre;
+    const precoAMZ = produto.precoAmazon;
+    const precoMin = (typeof precoML === 'number' || typeof precoAMZ === 'number')
+      ? Math.min(precoML ?? Number.POSITIVE_INFINITY, precoAMZ ?? Number.POSITIVE_INFINITY)
+      : produto.preco;
+    const tituloHTML = destacarTokens(produto.titulo || produto.nome || '', tokens);
+    const marcaHTML = destacarTokens(produto.marca || '', tokens);
+    const url = `pagina-produto?id=${produto.id}`;
+
+    previewEl.innerHTML = `
+      <div class="preview-card" role="region" aria-label="Prévia de produto">
+        <button class="preview-close" aria-label="Fechar prévia" title="Fechar">&times;</button>
+        <a href="${url}" class="preview-link" aria-label="Abrir página do produto">
+          <div class="preview-thumb">
+<img src="${imagem}" alt="${produto.titulo || produto.nome || 'Produto'}" onerror="this.src='/imagens/logos/logo-cabecalho.png'">
+          </div>
+          <div class="preview-info">
+            <div class="preview-marca">${marcaHTML}</div>
+            <div class="preview-titulo">${tituloHTML}</div>
+            <div class="preview-avaliacao">${gerarEstrelas(produto.avaliacao || 0)}</div>
+            <div class="preview-preco">${formatarMoeda(precoMin)}</div>
+          </div>
+        </a>
+        <div class="preview-actions">
+          <a class="btn-ver-detalhes" href="${url}">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            Ver produto
+          </a>
+        </div>
+      </div>
+    `;
+    previewEl.style.display = 'block';
+
+    // Registrar evento de preview previsto
+    try {
+      enviarHistoricoEvento({ term: String(campoBusca.value || '').trim(), predictedProductId: produto.id, eventType: 'preview' });
+    } catch (_) {}
+
+    const btnClose = previewEl.querySelector('.preview-close');
+    if (btnClose) btnClose.addEventListener('click', ocultarPreview);
+  }
+
+  function renderSugestoes(lista) {
+    if (!sugestoesBusca) return;
+    if (!Array.isArray(lista) || lista.length === 0) {
+      sugestoesBusca.innerHTML = `<div class="mensagem">Nenhum resultado para "${campoBusca.value.trim()}"</div>`;
+      sugestoesBusca.style.display = 'block';
+      campoBusca.setAttribute('aria-expanded', 'true');
+      itensSugestao = [];
+      indiceAtivo = -1;
+      campoBusca.removeAttribute('aria-activedescendant');
+      ocultarPreview();
+      return;
+    }
+
+    sugestoesBusca.innerHTML = lista.map((sugestao, idx) => {
+      let icone = '';
+      let info = '';
+      switch (sugestao.tipo) {
+        case 'produto':
+          icone = '<i class="fas fa-cube" aria-hidden="true"></i>';
+          info = `<span class="sugestao-categoria">${sugestao.categoria || ''}</span>` + (typeof sugestao.preco === 'number' ? `<span class="sugestao-preco">R$ ${sugestao.preco.toFixed(2).replace('.', ',')}</span>` : '');
+          break;
+        case 'categoria':
+          icone = '<i class="fas fa-tags" aria-hidden="true"></i>';
+          info = '<span class="sugestao-tipo">Categoria</span>';
+          break;
+        case 'subcategoria':
+          icone = '<i class="fas fa-tag" aria-hidden="true"></i>';
+          info = '<span class="sugestao-tipo">Subcategoria</span>';
+          break;
+        case 'marca':
+          icone = '<i class="fas fa-industry" aria-hidden="true"></i>';
+          info = '<span class="sugestao-tipo">Marca</span>';
+          break;
+      }
+      const idOpt = `sug-${idx}`;
+      return `
+        <div class="sugestao-item" id="${idOpt}" role="option" tabindex="-1" data-url="${sugestao.url}">
+          <div class="sugestao-icone">${icone}</div>
+          <div class="sugestao-conteudo">
+            <div class="sugestao-texto">${sugestao.texto}</div>
+            <div class="sugestao-info">${info}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+    sugestoesBusca.style.display = 'block';
+    campoBusca.setAttribute('aria-expanded', 'true');
+    itensSugestao = Array.from(sugestoesBusca.querySelectorAll('.sugestao-item'));
+
+    // Interações de mouse/touch
+    itensSugestao.forEach((el, i) => {
+      el.addEventListener('mouseenter', () => ativarIndice(i));
+      el.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        const url = el.getAttribute('data-url');
+        if (url) window.location.href = url;
+      });
+      el.addEventListener('touchstart', () => ativarIndice(i), { passive: true });
+    });
+  }
+
+  function ativarIndice(novo) {
+    itensSugestao.forEach(el => el.classList.remove('active'));
+    indiceAtivo = Math.max(0, Math.min(novo, itensSugestao.length - 1));
+    const ativoEl = itensSugestao[indiceAtivo];
+    if (ativoEl) {
+      ativoEl.classList.add('active');
+      campoBusca.setAttribute('aria-activedescendant', ativoEl.id);
+    }
+  }
+
+  function ocultarSugestoes() {
+    if (sugestoesBusca) {
+      sugestoesBusca.style.display = 'none';
+      campoBusca.setAttribute('aria-expanded', 'false');
+      campoBusca.removeAttribute('aria-activedescendant');
+      itensSugestao = [];
+      indiceAtivo = -1;
+    }
+  }
+
+  async function mostrarSugestoes(termo) {
+    if (!sugestoesBusca) return;
+    try {
+      campoBusca?.setAttribute('aria-busy', 'true');
+      const API_BASE = window.API_BASE || window.location.origin;
+      const url = `${API_BASE}/api/products/search?q=${encodeURIComponent(termo)}`;
+      const resp = await fetch(url, { credentials: 'include' });
+      if (resp.ok) {
+        const json = await resp.json();
+        const lista = Array.isArray(json?.suggestions) ? json.suggestions : [];
+        if (lista.length === 0) {
+          sugestoesBusca.innerHTML = `<div class="mensagem">Nenhum resultado para "${termo}"</div>`;
+          sugestoesBusca.style.display = 'block';
+          campoBusca.setAttribute('aria-expanded', 'true');
+          ocultarPreview();
+        } else {
+          renderSugestoes(lista);
+          if (json?.preview) renderPreview(json.preview); else ocultarPreview();
+        }
+        return;
+      }
+      // Fallback para lógica local se backend falhar
+    } catch (_) {}
+
+    // Fallback: lógica local anterior
+    const termoLower = (termo || '').toLowerCase();
+    const tokens = termoLower.split(/\s+/).filter(Boolean);
+    const match = (str) => {
+      const s = (str || '').toLowerCase();
+      return tokens.every(t => s.includes(t));
+    };
+
+    let base = Array.isArray(window.produtos) && window.produtos.length ? window.produtos : await obterProdutosParaSugestoes();
+    if (base === null) {
+      sugestoesBusca.innerHTML = `<div class="mensagem">Erro ao carregar sugestões. Tente novamente.</div>`;
+      sugestoesBusca.style.display = 'block';
+      campoBusca.setAttribute('aria-expanded', 'true');
+      ocultarPreview();
+      return;
+    }
+
+    const sugestoes = [];
+    (base || []).forEach(produto => {
+      const titulo = (produto.titulo || produto.nome || '');
+      const marca = (produto.marca || '');
+      const categoria = (produto.categoria || '');
+      if (match(titulo) || match(marca) || match(categoria)) {
+        const precoML = produto.precoMercadoLivre;
+        const precoAMZ = produto.precoAmazon;
+        const precoMin = (typeof precoML === 'number' || typeof precoAMZ === 'number')
+          ? Math.min(precoML ?? Number.POSITIVE_INFINITY, precoAMZ ?? Number.POSITIVE_INFINITY)
+          : produto.preco;
+        sugestoes.push({
+          tipo: 'produto',
+          texto: titulo,
+          categoria: produto.categoria,
+          preco: precoMin,
+    url: `pagina-produto?id=${produto.id}`
+        });
+      }
+    });
+
+    const categorias = [...new Set((base || []).map(p => p.categoria).filter(Boolean))];
+    categorias.forEach(categoria => {
+      if (match(categoria)) {
+        sugestoes.push({ tipo: 'categoria', texto: categoria, url: `/produtos?categoria=${encodeURIComponent(categoria)}` });
+      }
+    });
+    // Subcategorias pareadas com categorias
+    const paresSub = Array.from(new Set((base || [])
+      .filter(p => p.subcategoria && p.categoria)
+      .map(p => `${p.categoria}|||${p.subcategoria}`)
+    ));
+    paresSub.forEach(key => {
+      const [categoria, subcategoria] = key.split('|||');
+      if (match(subcategoria)) {
+        sugestoes.push({
+          tipo: 'subcategoria',
+          texto: subcategoria,
+          url: `/produtos?categoria=${encodeURIComponent(categoria)}&subcategoria=${encodeURIComponent(subcategoria)}`
+        });
+      }
+    });
+    const marcas = [...new Set((base || []).map(p => p.marca).filter(Boolean))];
+    marcas.forEach(marca => {
+      if (match(marca)) {
+        sugestoes.push({ tipo: 'marca', texto: marca, url: `/produtos?marca=${encodeURIComponent(marca)}` });
+      }
+    });
+
+    const sugestoesLimitadas = sugestoes.slice(0, 8);
+    renderSugestoes(sugestoesLimitadas);
+    try {
+      const pred = preverIntencao(termo, base);
+      if (pred) renderPreview(pred);
+      else ocultarPreview();
+    } catch (_) {
+      ocultarPreview();
+    }
+  }
+
+  // Evita conflito com inicialização da busca global em js/cabecalho-melhorado.js
+  if (campoBusca && botaoBusca && !campoBusca.dataset.buscaInit) {
+    botaoBusca.addEventListener('click', executarBusca);
+    campoBusca.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        if (indiceAtivo >= 0 && itensSugestao[indiceAtivo]) {
+          const url = itensSugestao[indiceAtivo].getAttribute('data-url');
+          if (url) window.location.href = url;
+        } else {
+          executarBusca();
+        }
+        // Ao confirmar a busca, ocultar preview
+        ocultarPreview();
+      } else if (e.key === 'ArrowDown') {
+        if (itensSugestao.length) ativarIndice(Math.min((indiceAtivo < 0 ? 0 : indiceAtivo + 1), itensSugestao.length - 1));
+        else if (campoBusca.value.trim().length >= 2) mostrarSugestoes(campoBusca.value.trim());
+        e.preventDefault();
+      } else if (e.key === 'ArrowUp') {
+        if (itensSugestao.length) ativarIndice(Math.max(0, indiceAtivo - 1));
+        e.preventDefault();
+      } else if (e.key === 'Escape') {
+        ocultarSugestoes();
+        ocultarPreview();
+      }
+    });
+
+    campoBusca.addEventListener('input', function(e) {
+      const termo = e.target.value.trim();
+      clearTimeout(timeoutSugestoes);
+      clearTimeout(timeoutPreview);
+
+      // Remover estado de erro quando o usuário digitar novamente
+      campoBusca.removeAttribute('aria-invalid');
+
+      if (!validarTermoBusca(termo)) {
+        ocultarSugestoes();
+        ocultarPreview();
+        // Feedback leve quando termo é muito curto
+        if (sugestoesBusca && termo.length > 0) {
+          sugestoesBusca.innerHTML = `<div class="mensagem">Digite ao menos 2 caracteres válidos</div>`;
+          sugestoesBusca.style.display = 'block';
+          campoBusca.setAttribute('aria-expanded', 'true');
+        }
+        return;
+      }
+
+      // Em produtos.html, atualizar resultados dinamicamente
+      const emProdutos = /\/produtos(\.html)?$/i.test(window.location.pathname);
+      if (emProdutos && typeof window.atualizarBuscaProdutos === 'function') {
+        timeoutSugestoes = setTimeout(() => { try { window.atualizarBuscaProdutos(termo); } catch {} }, 200);
+      } else {
+        // Sugestões globais
+        timeoutSugestoes = setTimeout(() => { mostrarSugestoes(termo); }, 250);
+        // análise de intenção em tempo real (< 500ms)
+        timeoutPreview = setTimeout(async () => {
+          if (termo === ultimoTermoAnalise) return;
+          ultimoTermoAnalise = termo;
+          const base = Array.isArray(window.produtos) && window.produtos.length ? window.produtos : await obterProdutosParaSugestoes();
+          const pred = preverIntencao(termo, base || []);
+          if (pred) renderPreview(pred);
+          else ocultarPreview();
+        }, 300);
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.caixa-pesquisa')) {
+        ocultarSugestoes();
+        ocultarPreview();
+      }
+    });
+  }
+});
+
+// ==================== ANIMAÇÃO SCROLL ====================
+const observador = new IntersectionObserver((entradas) => {
+  entradas.forEach((entrada) => {
+    if (entrada.isIntersecting) {
+      entrada.target.classList.add("visible");
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".fade-slide").forEach((el) => {
+  observador.observe(el);
+});
+
+// ==================== SISTEMA DE DROPDOWN DEPARTAMENTOS ====================
+// Interações do dropdown e submenus foram centralizadas em js/cabecalho-melhorado.js
+// Este bloco foi removido para evitar conflitos e garantir abertura apenas por clique.
+
+// ==================== NAVEGAÇÃO POR CATEGORIA ====================
+// Pegar categoria da URL
+const urlParams = new URLSearchParams(window.location.search);
+const categoria = urlParams.get("categoria");
+
+// Mostrar breadcrumb dinâmico
+if (categoria && document.querySelector(".breadcrumb")) {
+    document.querySelector(".breadcrumb").innerHTML =
+        `<a href="/">Início</a> › <span>${decodeURIComponent(categoria).replace(/[\+\-]/g, " ")}</span>`;
+}
+
+// ==================== FUNÇÃO AUXILIAR PARA DEBUG ====================
+// Função para debug (pode ser removida em produção)
+function debugDropdown() {
+  console.log('Elementos encontrados:');
+  console.log('Dropdown principal:', document.querySelector(".barra-categorias li.dropdown"));
+  console.log('Link departamentos:', document.querySelector(".barra-categorias li.dropdown > a"));
+  console.log('Itens com submenu:', document.querySelectorAll(".barra-categorias .tem-submenu").length);
+}
+
+// Executar debug se necessário (remover em produção)
+// debugDropdown();
+// ==================== CALCULADOR DE CEP ====================
+document.addEventListener('DOMContentLoaded', function() {
+  const inputCep = document.getElementById('input-cep');
+  const resultadoCep = document.getElementById('resultado-cep');
+  
+  if (inputCep && resultadoCep) {
+    // Máscara para CEP
+    inputCep.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 5) {
+        value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+      }
+      e.target.value = value;
+      
+      // Consultar CEP quando tiver 8 dígitos
+      if (value.replace(/\D/g, '').length === 8) {
+        consultarCEP(value.replace(/\D/g, ''));
+      } else if (value.length === 0) {
+        resultadoCep.textContent = 'Consultar frete';
+        resultadoCep.className = 'resultado-cep';
+      }
+    });
+    
+    // Consultar CEP ao pressionar Enter
+    inputCep.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const cep = e.target.value.replace(/\D/g, '');
+        if (cep.length === 8) {
+          consultarCEP(cep);
+        }
+      }
+    });
+  }
+  
+  function consultarCEP(cep) {
+    if (!resultadoCep) return;
+    
+    resultadoCep.textContent = 'Consultando...';
+    resultadoCep.className = 'resultado-cep loading';
+    
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.erro) {
+          resultadoCep.textContent = 'CEP não encontrado';
+          resultadoCep.className = 'resultado-cep error';
+        } else {
+          resultadoCep.textContent = `${data.localidade} - ${data.uf}`;
+          resultadoCep.className = 'resultado-cep success';
+          
+          // Calcular frete simulado
+          setTimeout(() => {
+            const freteGratis = Math.random() > 0.5;
+            if (freteGratis) {
+              resultadoCep.textContent = 'Frete grátis!';
+            } else {
+              const valorFrete = (Math.random() * 20 + 5).toFixed(2);
+              resultadoCep.textContent = `Frete: R$ ${valorFrete}`;
+            }
+          }, 1500);
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao consultar CEP:', error);
+        resultadoCep.textContent = 'Erro na consulta';
+        resultadoCep.className = 'resultado-cep error';
+      });
+  }
+});
+
+  // Removido redirecionamento agressivo da caixinha de login.
+  // A lógica de dropdown e navegação é controlada por js/cabecalho-melhorado.js.
+  </script>
+<script src="/js/chatbot.js" defer></script>
+</body>
+</html>

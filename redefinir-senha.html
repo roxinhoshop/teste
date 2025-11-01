@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redefinir senha | Roxinho Shop</title>
+
+      <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/redefinir-senha.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Placeholder para Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <div class="container">
+      <section class="login-section">
+        <form class="login-card" id="formularioEsqueceuSenha" novalidate>
+
+          <h2 class="welcome-text">Redefinir senha</h2>
+          <p class="welcome-subtitle">
+            Digite seu e-mail para receber as instruções de recuperação de senha
+          </p>
+
+          <!-- Campo E-mail -->
+          <div class="input-container">
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input"
+              placeholder=" "
+              autocomplete="email"
+              required
+              aria-describedby="erro-email">
+            <label for="email" class="form-label">
+              E-mail <span class="asterisco">*</span>
+            </label>
+            <div id="erro-email" class="error-message" aria-live="polite"></div>
+          </div>
+
+          <!-- Aviso -->
+          <div class="enviar-link">
+            <span>Enviaremos um link de recuperação para o seu e-mail</span>
+          </div>
+
+          <!-- Botão -->
+          <button type="submit" class="login-button" id="botaoEnviar">
+            <span>Enviar link de recuperação</span>
+          </button>
+
+          <!-- Sucesso -->
+          <div id="mensagem-sucesso" class="success-message">
+            E-mail de recuperação enviado! Verifique sua caixa de entrada.
+          </div>
+
+          <!-- Voltar -->
+          <p class="voltar-login"> 
+            Lembrou sua senha?
+      <br><a href="/login">Voltar para o login</a>
+          </p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Placeholder para Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="/js/redefinir-senha.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  
+  <script>
+fetch('/cabecalho-rodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      // Executar scripts do cabecalho/rodape
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Vendedor | Roxinho Shop</title>
+
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+  <link rel="stylesheet" href="/css/cadastro.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <style>
+    .upload-grupo { display: grid; gap: .5rem; }
+    .upload-hint { font-size: .85rem; color: #555; }
+    /* Label do documento: preto no light-mode */
+    .upload-grupo .rotulo-formulario { color: #000000; }
+    /* Light-mode: documento (file-pill) */
+    .file-pill { display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .6rem; border-radius: 999px; background: #ffffff; color: #000000; border: 1px solid #e5e7eb; }
+    .file-pill i { color: inherit; }
+    /* Área de preview com fundo preto para destacar imagens/documentos */
+    #previewImagem { display: none; background: #000000; color: #ffffff; padding: 8px; border-radius: 8px; border: 1px solid #111; max-width: 100%; }
+    #previewImagem img { display: block; max-width: 100%; height: auto; border-radius: 6px; border: 1px solid #222; }
+    .mensagem-erro.visivel { color: #cc0000; margin-top: .25rem; }
+    /* Oculta a caixa de login do cabeçalho nesta página */
+    #caixa-login { display: none !important; }
+
+    /* Input de arquivo oculto e botão personalizado "Escolher arquivo" */
+    #arquivoDocumento { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .btn-arquivo { display: inline-block; background: #833dd0; color: #fff; border: 1px solid #7a36c3; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-weight: 700; }
+
+    /* Variantes em modo escuro */
+    body.dark .file-pill { background: #000000; color: #ffffff; border-color: #334155; }
+    body.dark .btn-arquivo { background: #883fd8; color: #fff; border-color: #7a36c3; }
+    /* Label do documento: branco no dark-mode para contraste */
+    body.dark .upload-grupo .rotulo-formulario { color: #ffffff; }
+  </style>
+</head>
+<body class="pagina-cadastro">
+  <div id="header-placeholder"></div>
+
+  <main class="container">
+    <section class="auth-container" aria-label="Cadastro de vendedor">
+      <aside class="auth-aside">
+        <div class="auth-banner" aria-hidden="true">
+    <img src="/imagens/cadastro-banner.png" alt="" />
+        </div>
+      </aside>
+      <div class="auth-content">
+        <div class="secao-cadastro">
+          <form class="cartao-cadastro" id="formularioCadastroVendedor" novalidate>
+            <h2 class="texto-titulo">Cadastre-se como Vendedor</h2>
+            <p class="texto-subtitulo">Preencha seus dados para começar a vender</p>
+
+            <div class="linha-formulario">
+              <div class="grupo-formulario">
+                <div class="floating-label-container">
+                  <input type="text" id="nome" name="nome" class="entrada-formulario" placeholder=" " autocomplete="given-name" required aria-describedby="erro-nome">
+                  <label for="nome" class="rotulo-formulario floating-label">Nome <span class="required">*</span></label>
+                </div>
+                <div id="erro-nome" class="apenas-leitura-tela" aria-live="polite"></div>
+              </div>
+
+              <div class="grupo-formulario">
+                <div class="floating-label-container">
+                  <input type="text" id="sobrenome" name="sobrenome" class="entrada-formulario" placeholder=" " autocomplete="family-name" required aria-describedby="erro-sobrenome">
+                  <label for="sobrenome" class="rotulo-formulario floating-label">Sobrenome <span class="required">*</span></label>
+                </div>
+                <div id="erro-sobrenome" class="apenas-leitura-tela" aria-live="polite"></div>
+              </div>
+            </div>
+
+            <div class="grupo-formulario coluna-completa">
+              <div class="floating-label-container">
+                <input type="email" id="email" name="email" class="entrada-formulario" placeholder=" " autocomplete="email" required aria-describedby="erro-email">
+                <label for="email" class="rotulo-formulario floating-label">E-mail <span class="required">*</span></label>
+              </div>
+              <div id="erro-email" class="apenas-leitura-tela" aria-live="polite"></div>
+            </div>
+
+            <div class="grupo-formulario coluna-completa">
+              <div class="floating-label-container">
+                <input type="text" id="nomeLoja" name="nomeLoja" class="entrada-formulario" placeholder=" " required aria-describedby="erro-nomeLoja">
+                <label for="nomeLoja" class="rotulo-formulario floating-label">Nome da Loja <span class="required">*</span></label>
+              </div>
+              <div id="erro-nomeLoja" class="apenas-leitura-tela" aria-live="polite"></div>
+            </div>
+
+            <div class="grupo-formulario coluna-completa">
+              <div class="floating-label-container">
+                <input type="text" id="documento" name="documento" class="entrada-formulario" placeholder="000.000.000-00" inputmode="numeric" maxlength="14" aria-describedby="erro-documento">
+                <label for="documento" class="rotulo-formulario floating-label">CPF</label>
+              </div>
+              <div id="erro-documento" class="apenas-leitura-tela" aria-live="polite"></div>
+            </div>
+
+            <div class="grupo-formulario coluna-completa upload-grupo">
+              <label class="rotulo-formulario" for="arquivoDocumento">Documento do vendedor (PDF, JPG, PNG)</label>
+              <!-- Botão personalizado para escolher arquivo -->
+              <label for="arquivoDocumento" class="btn-arquivo">Escolher arquivo</label>
+              <input type="file" id="arquivoDocumento" name="arquivoDocumento" accept=".pdf,.jpg,.jpeg,.png" />
+              <div class="upload-hint">Tamanho máximo 5MB. Pré-visualização para imagens.</div>
+              <div id="arquivoSelecionado" class="file-pill" style="display:none;"><i class="fa-regular fa-file"></i><span id="arquivoNome">arquivo</span></div>
+              <div id="previewImagem" style="display:none;"></div>
+              <div id="erro-arquivoDocumento" class="apenas-leitura-tela" aria-live="polite"></div>
+            </div>
+
+            <div class="grupo-formulario coluna-completa">
+              <div class="floating-label-container">
+                <input type="password" id="senha" name="senha" class="entrada-formulario" placeholder=" " autocomplete="new-password" required aria-describedby="erro-senha">
+                <label for="senha" class="rotulo-formulario floating-label">Senha <span class="required">*</span></label>
+                <button type="button" class="toggle-password" id="toggleSenhaCadastro" aria-label="Mostrar senha">
+                  <span class="icon-eye" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+                  <span class="icon-eye-off" aria-hidden="true"><i class="fa-solid fa-eye-slash"></i></span>
+                </button>
+              </div>
+
+              <div id="feedback-senha" class="feedback-senha">
+                <div id="indicador-senha-container" class="indicador-senha-container">
+                  <div class="barra-forca-senha">
+                    <div id="progresso-senha" class="progresso-forca-senha"></div>
+                  </div>
+                  <div class="texto-forca-senha">
+                    <span id="nivel-senha" class="nivel-forca"></span>
+                    <span id="pontuacao-senha" class="pontuacao-forca"></span>
+                  </div>
+                </div>
+              <div id="aviso-senha-curta" class="aviso-senha-curta">
+                <span class="icone-aviso"></span>
+                <span>Mínimo 8 caracteres — números e símbolos são opcionais</span>
+              </div>
+              </div>
+
+              <div id="erro-senha" class="apenas-leitura-tela" aria-live="polite"></div>
+            </div>
+
+            <div class="grupo-formulario coluna-completa">
+              <div class="floating-label-container">
+                <input type="password" id="confirmarSenha" name="confirmarSenha" class="entrada-formulario" placeholder=" " autocomplete="new-password" required aria-describedby="erro-confirmar-senha">
+                <label for="confirmarSenha" class="rotulo-formulario floating-label">Confirmar Senha <span class="required">*</span></label>
+                <button type="button" class="toggle-password" id="toggleConfirmarSenha" aria-label="Mostrar confirmação de senha">
+                  <span class="icon-eye" aria-hidden="true"><i class="fa-solid fa-eye"></i></span>
+                  <span class="icon-eye-off" aria-hidden="true"><i class="fa-solid fa-eye-slash"></i></span>
+                </button>
+              </div>
+              <div id="erro-confirmar-senha" class="apenas-leitura-tela" aria-live="polite"></div>
+            </div>
+
+            <button type="submit" class="botao-cadastro" id="botaoCadastro">
+              <span>Criar Conta de Vendedor</span>
+            </button>
+
+            <p class="link-login">
+            Já é vendedor? <a href="/login-vendedor">Fazer login</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  <script src="/js/cadastro-vendedor.js"></script>
+  <script>
+fetch('/cabecalho-rodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      // Remove a caixa de login do cabeçalho nesta página
+      const caixaLogin = document.getElementById('caixa-login');
+      if (caixaLogin) caixaLogin.remove();
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+  </script>
+
+</body>
+</html>

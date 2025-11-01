@@ -1,0 +1,235 @@
+/* ===== Roxinho Shop - Histórico de Produtos ===== */
+* { box-sizing: border-box; }
+body { background: #ffffff; font-family: "Nunito Sans", sans-serif; }
+
+.container-historico {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+html.dark .container-historico { background: #000000; }
+
+.cabecalho-historico { margin-bottom: 1rem; }
+.cabecalho-historico h1 {
+  font-size: 1.8rem;
+  color: #000000; /* título em preto */
+  margin-bottom: 0.25rem;
+}
+.cabecalho-historico .subtitulo-historico {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.estado-vazio {
+  display: grid;
+  place-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px dashed #e5e7eb;
+  color: #6b7280;
+}
+.estado-vazio i { font-size: 2rem; color: #7c3aed; }
+.btn-primario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #833dd0, #833dd0);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.lista-historico {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+html.dark .lista-historico { background: transparent; }
+
+.item-historico {
+  display: block; /* deixa o link interno usar toda a largura */
+  padding: 0.75rem;
+  padding-right: 3rem; /* espaço para o botão fixo */
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  position: relative; /* permite posicionar o botão no canto */
+}
+
+.thumb-produto {
+  width: 96px; height: 96px; border-radius: 10px; object-fit: contain; object-position: center; background: #f3f4f6;
+}
+
+.detalhes-produto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.nome-produto {
+  font-size: 1rem; font-weight: 700; color: #111827; margin-bottom: 0.25rem; overflow: hidden; text-overflow: ellipsis; white-space: normal; /* permite usar toda a largura */
+}
+.precos-plataformas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+  align-items: center;
+  justify-items: center; /* centraliza os preços no histórico */
+  margin: 0.25rem 0 0.35rem;
+  width: 100%;
+}
+.precos-plataformas .preco-ml,
+.precos-plataformas .preco-amazon {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem; /* preços menores na div */
+  font-weight: 700;
+  width: 100%;
+}
+.precos-plataformas .preco-ml { color: #1b1b1b; }
+.precos-plataformas .preco-amazon { color: #ffffff; }
+.preco-ml-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffe600; /* amarelo Mercado Livre */
+  color: #1b1b1b;
+  padding: 1px 6px; /* badge mais compacta */
+  border-radius: 6px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  width: max-content; /* não ocupar 100% para centralizar */
+  justify-content: center;
+  margin: 0 auto; /* centraliza dentro da célula */
+}
+.preco-amazon span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #111111; /* preto Amazon */
+  color: #ffffff;
+  padding: 1px 6px; /* badge mais compacta */
+  border-radius: 6px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  width: max-content; /* não ocupar 100% para centralizar */
+  justify-content: center;
+  margin: 0 auto; /* centraliza dentro da célula */
+}
+.precos-plataformas .icone-plataforma { width: 14px; height: 14px; object-fit: contain; margin-right: 6px; border-radius: 3px; }
+.preco-ml-badge:hover { background: #ffd700; transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(124,58,237,0.2); }
+.preco-amazon span:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(124,58,237,0.2); }
+.data-visualizacao { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 0.35rem; 
+  flex-wrap: nowrap; /* manter label e data na mesma linha */
+  font-size: 0.85rem; 
+  color: #6b7280; 
+  margin-top: 0.15rem; 
+}
+.data-visualizacao .label { color: #6b7280; font-weight: 600; }
+.data-visualizacao .valor { color: #111827; font-weight: 700; }
+
+.acoes-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  position: absolute;
+  top: 8px; right: 8px;
+  z-index: 2;
+}
+.btn-remover {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px;
+  background: #f9fafb; color: #6b7280; border: 1px solid #e5e7eb;
+  cursor: pointer; transition: all 0.2s ease;
+}
+.btn-remover:hover { background: #fff; color: #ef4444; border-color: #ef4444; }
+.btn-remover:focus-visible { outline: 3px solid rgba(131,61,208,0.35); outline-offset: 2px; }
+
+/* Link clicável envolvendo o item */
+.item-historico .link-item { display: grid; grid-template-columns: 96px 1fr; gap: 0.75rem; align-items: start; text-decoration: none; color: inherit; width: 100%; }
+.item-historico .link-item:hover .nome-produto { text-decoration: underline; }
+
+/* Preço destaque abaixo do nome (paleta da Home) */
+.item-historico .detalhes-produto .preco-destaque-historico {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 2px 0 6px;
+}
+.item-historico .detalhes-produto .menor-preco-label {
+  background: #22c55e; /* verde label */
+  color: #ffffff;
+  font-weight: 800;
+  border-radius: 9999px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+}
+.item-historico .detalhes-produto .preco-principal {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #111827; /* texto escuro */
+  letter-spacing: -0.3px;
+}
+.item-historico .detalhes-produto .parcelamento {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #4b5563; /* texto médio */
+}
+.item-historico .detalhes-produto .comparar-lojas {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #6b7280; /* texto cinza */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.item-historico .detalhes-produto .comparar-lojas i {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+/* Grid de cards responsivo: ajusta o número de colunas por largura */
+@media (min-width: 640px) {
+  .lista-historico { grid-template-columns: repeat(2, minmax(280px, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .lista-historico { grid-template-columns: repeat(3, minmax(280px, 1fr)); }
+}
+
+/* ===== Dark Mode Overrides (tom preto único) ===== */
+html.dark body { background: #000000; }
+html.dark .item-historico {
+  background: #000000;
+  border-color: #2c2c2f;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+html.dark .thumb-produto { background: #000000; }
+html.dark .nome-produto { color: #ffffff; }
+html.dark .data-visualizacao .label { color: #9ca3af; }
+html.dark .data-visualizacao .valor { color: #ffffff; }
+html.dark .btn-remover { background: #000000; color: #9ca3af; border-color: #2c2c2f; }
+html.dark .btn-remover:hover { background: #000000; color: #ef4444; border-color: #ef4444; }
+html.dark .preco-destaque-historico .menor-preco-label { background: #22c55e; color: #ffffff; }
+html.dark .preco-destaque-historico .preco-principal { color: #ffffff; }
+html.dark .preco-destaque-historico .parcelamento { color: #9ca3af; }
+html.dark .detalhes-produto .comparar-lojas { color: #a78bfa; }
+html.dark .detalhes-produto .comparar-lojas i { color: #c4b5fd; }
+html.dark .estado-vazio { border-color: #1f2937; color: #9ca3af; }
+html.dark .estado-vazio i { color: #a78bfa; }
+html.dark .btn-primario { background: linear-gradient(90deg, #833dd0, #833dd0); color: #ffffff; }
+html.dark .preco-amazon span { background: #000000; color: #ffffff; }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termos e condições | Roxinho Shop</title>
+
+      <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+  <link rel="stylesheet" href="/css/termos.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+
+  <style>
+
+  </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<main class="termos">
+  <section class="conteudo-termos">
+    <h1>Termos e Condições</h1>
+    <p>Bem-vindo à Roxinho Shop. Ao acessar e utilizar nosso site, você concorda com os termos e condições abaixo, que têm como objetivo garantir uma experiência segura e transparente para todos os usuários.</p>
+
+    <ul>
+      <li><strong>Catálogo e Intermediação:</strong> A Roxinho Shop atua apenas como intermediadora, apresentando produtos e ofertas de parceiros comerciais. As compras e transações são realizadas diretamente nos sites dos respectivos vendedores.</li>
+      <li><strong>Disponibilidade e Informações:</strong> As informações, preços e disponibilidade dos produtos exibidos no catálogo são de responsabilidade exclusiva dos parceiros. Esforçamo-nos para manter os dados atualizados, mas não garantimos sua precisão ou disponibilidade constante.</li>
+      <li><strong>Preços e Condições:</strong> Os valores e condições de pagamento exibidos podem ser alterados sem aviso prévio pelos sites de destino. A Roxinho Shop não interfere nem realiza transações financeiras diretamente.</li>
+      <!-- É possível acessar a página de políticas por aqui também -->
+            <li><strong>Política de Privacidade:</strong> O uso do catálogo implica a aceitação da nossa <a href="/politicas">Política de Segurança e Privacidade</a>, que assegura o tratamento responsável dos dados pessoais, conforme a legislação vigente (LGPD).</li>
+      <li><strong>Responsabilidade do Usuário:</strong> O usuário deve verificar cuidadosamente as condições de venda, entrega e garantia diretamente com o site parceiro antes de concluir qualquer compra.</li>
+      <li><strong>Alterações nos Termos:</strong> Estes termos podem ser atualizados periodicamente, sendo responsabilidade do usuário consultá-los sempre que acessar o catálogo.</li>
+    </ul>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+fetch('/cabecalho-rodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+</script>
+
+  <script src="/js/cabecalho-melhorado.js"></script>
+
+</body>
+</html>

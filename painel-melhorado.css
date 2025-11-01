@@ -1,0 +1,255 @@
+/* ======================= MELHORIAS DO PAINEL DO USUÁRIO ======================= */
+/* Desenvolvido por Gabriel (gabwvr) */
+/* Correções de layout, alinhamento e responsividade */
+
+/* Container principal do painel */
+.container-painel {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Layout principal */
+.wrapper-conteudo {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Sidebar melhorada */
+.coluna-esquerda {
+  position: sticky;
+  top: 100px;
+}
+
+.barra-filtros {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.cabecalho-filtros {
+  background: linear-gradient(135deg, #833dd0 0%, #833dd0 100%);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.cabecalho-filtros h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Menu de navegação */
+.menu-navegacao {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-navegacao {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.item-navegacao:last-child {
+  border-bottom: none;
+}
+
+.link-navegacao {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  color: #64748b;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.link-navegacao:hover {
+  background: #f8fafc;
+  color: #7c3aed;
+  transform: translateX(5px);
+}
+
+.link-navegacao.active {
+  background: #f1f5f9;
+  color: #7c3aed;
+  border-right: 3px solid #ffc800;
+}
+
+.link-navegacao i {
+  width: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* Área principal */
+.area-produtos {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  
+}
+
+/* Banner de categoria no painel */
+.banner-categoria {
+  background: linear-gradient(135deg, #833dd0 0%, #833dd0 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+      border-radius: 12px;
+    margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-categoria::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.conteudo-banner {
+  position: relative;
+  z-index: 2;
+}
+
+.titulo-categoria {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Conteúdo das seções */
+.conteudo-secao {
+  padding: 2rem;
+}
+
+/* Cards de estatísticas */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #833dd0 0%, #833dd0 100%);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.15);
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #7c3aed;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .wrapper-conteudo {
+    grid-template-columns: 1fr;
+  }
+  
+  .coluna-esquerda {
+    position: static;
+  }
+  
+  .menu-navegacao {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .item-navegacao {
+    border-bottom: none;
+    border-right: 1px solid #f1f5f9;
+  }
+  
+  .item-navegacao:last-child {
+    border-right: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-painel {
+    padding: 1rem 0.5rem;
+  }
+  
+  .menu-navegacao {
+    grid-template-columns: 1fr;
+  }
+  
+  .item-navegacao {
+    border-right: none;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .titulo-categoria {
+    font-size: 1.5rem;
+  }
+  
+  .conteudo-secao {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .link-navegacao {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+  }
+  
+  .banner-categoria {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Removido: bloco de tema escuro para painel admin/usuário conforme solicitação */
+

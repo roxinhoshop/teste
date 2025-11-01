@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roxinho Shop | Compare, economize e encontre o melhor para você.</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/home-melhorado.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+
+  <link rel="stylesheet" href="/css/responsivo.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <style>
+    /* Salvaguarda: garantir que o carrossel esteja visível */
+    .carrossel-moderno { display: block; }
+  </style>
+</head>
+<body class="index-page">
+  <div id="header-placeholder"></div>
+
+  
+<!-- ======================= CARROSSEL DE BANNERS MODERNO ======================= -->
+<section class="carrossel-moderno">  
+  <div class="container-carrossel">
+    <div class="slides-wrapper" id="slidesWrapper">
+      <!-- Slide 1: Banner principal -->
+      <div class="slide ativo" data-link="/quem-somos.html">
+        <img src="/imagens/banner1.png" alt="Destaques RoxinhoShop">
+      </div>
+
+      <!-- Slide 2: Halloween Promo -->
+      <div class="slide" data-link="produtos">
+        <img src="/imagens/banner-halloween.png" alt="Promoção de Halloween">
+      </div>
+
+      <!-- Slide 3: Banner gamer -->
+      <div class="slide" data-link="/produtos?categoria=Computadores">
+        <img src="/imagens/banner-gamer.jpeg" alt="Linha gamer">
+      </div>
+    </div>
+  </div>
+      
+      <!-- Controles do Carrossel -->
+      <div class="carrossel-controles">
+        <button class="btn-controle btn-anterior" id="btnAnterior">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="btn-controle btn-proximo" id="btnProximo">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <!-- Indicadores + Pausa/Play (lado a lado e alinhados) -->
+      <div class="carrossel-indicadores" id="indicadores">
+        <button class="indicador ativo" data-slide="0"></button>
+        <button class="indicador" data-slide="1"></button>
+        <button class="indicador" data-slide="2"></button>
+        <button class="btn-play-pause" id="btnPlayPause">
+          <i class="fas fa-pause"></i>
+        </button>
+      </div>
+   
+  </section>
+
+  <!-- Placeholder para barra de categorias (reposicionada abaixo do carrossel) -->
+  <!-- Removido placeholder; categorias serão injetadas no header-placeholder -->
+
+  
+
+  <!-- ======================= CATEGORIAS POPULARES ======================= -->
+  <section class="categorias-populares">
+    <div class="container">
+      <h2 class="titulo-secao">Categorias Populares</h2>
+      <div class="grid-categorias">
+            <a href="/produtos?categoria=Hardware" class="categoria-card">
+          <img src="/imagens/Catalogos/categoria-hardware.png" alt="Hardware" class="categoria-imagem">
+          <div class="categoria-conteudo">
+            <h3>Hardware</h3>
+            <p>Processadores, placas de vídeo e mais</p>
+          </div>
+        </a>
+            <a href="/produtos?categoria=Periféricos" class="categoria-card">
+          <img src="/imagens/Catalogos/categoria-perifericos.png" alt="Periféricos" class="categoria-imagem">
+          <div class="categoria-conteudo">
+            <h3>Periféricos</h3>
+            <p>Teclados, mouses e headsets</p>
+          </div>
+        </a>
+            <a href="/produtos?categoria=Computadores" class="categoria-card">
+          <img src="/imagens/Catalogos/categoria-computadores.png" alt="Computadores" class="categoria-imagem">
+          <div class="categoria-conteudo">
+            <h3>Computadores</h3>
+            <p>PCs completos e notebooks</p>
+          </div>
+        </a>
+            <a href="/produtos?categoria=Games" class="categoria-card">
+          <img src="/imagens/Catalogos/categoria-games.png" alt="Games" class="categoria-imagem">
+          <div class="categoria-conteudo">
+            <h3>Games</h3>
+            <p>Consoles e acessórios gamer</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= PRODUTOS EM DESTAQUE ======================= -->
+  <section class="produtos-destaque">
+    <div class="container">
+      <h2 class="titulo-secao">Produtos em Destaque</h2>
+      <p class="subtitulo-secao">Veja agora os produtos mais procurados nos últimos dias!</p>
+      
+      <div id="grade-produtos-home" class="grade-produtos-home">
+        <!-- Produtos serão inseridos aqui via JavaScript -->
+      </div>
+
+      <div class="ver-todos">
+        <a href="/produtos" class="botao-ver-todos">
+          <span>Ver Todos os Produtos</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= HISTÓRICO DE PRODUTOS (HOME) ======================= -->
+  <section class="historico-home" id="historicoHome" style="display:none;">
+    <div class="container">
+      <h2 class="titulo-secao">Seu Histórico</h2>
+      <p class="subtitulo-secao">Continue navegando pelos últimos produtos que você visualizou</p>
+      <div id="grade-historico-home" class="grade-historico-home"></div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- JS - ORDEM IMPORTANTE! -->
+  <!-- Define API_BASE para mesma origem antes dos demais scripts -->
+  <script src="/js/site-popup.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/home-produtos.js"></script>
+  <script src="/js/home-melhorado.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  <script src="/js/rotas.js"></script>
+  
+
+  
+  <script>
+  fetch('/cabecalho-rodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) {
+        // Adicionar contador do carrinho ao cabeçalho
+        const carrinhoLink = header.querySelector('.caixa-carrinho');
+        if (carrinhoLink && !carrinhoLink.querySelector('.contador-carrinho')) {
+          const contador = document.createElement('span');
+          contador.id = 'contador-carrinho-cabecalho';
+          contador.className = 'contador-carrinho';
+          contador.textContent = '0';
+          contador.style.display = 'none';
+          carrinhoLink.appendChild(contador);
+        }
+        
+        document.getElementById('header-placeholder').appendChild(header);
+      }
+      // Inserir barra de categorias imediatamente após o cabeçalho
+      if (categorias) {
+        document.getElementById('header-placeholder').appendChild(categorias);
+      }
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      // Evitar injeção de scripts do cabeçalho/rodapé para prevenir duplicidade
+      // O cabeçalho é controlado por js/cabecalho-melhorado.js já incluído na página.
+
+      // Atualizar contador do carrinho após carregar o cabeçalho
+      if (typeof atualizarContadorCarrinho === 'function') {
+        atualizarContadorCarrinho();
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao carregar cabeçalho/rodapé:', error);
+    });
+
+  </script>
+
+    </body>
+</html>

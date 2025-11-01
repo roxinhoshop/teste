@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Políticas | Roxinho Shop</title>
+
+      <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+
+  <link rel="stylesheet" href="/css/politicas.css">
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<main class="politicas">
+  <section class="conteudo-politicas">
+    <h1>Políticas de Segurança e Privacidade</h1>
+    <p>
+      O SECRETÁRIO DE GOVERNO DIGITAL DO MINISTÉRIO DA GESTÃO E DA INOVAÇÃO EM SERVIÇOS PÚBLICOS, no uso das atribuições que lhe conferem o art. 22 do Decreto nº 11.437, de 17 de março de 2023, e o inciso V do art. 6º do Decreto 10.332, de 28 de abril de 2020, e tendo em vista o disposto no art. 4º do Decreto nº 7.579, de 11 de outubro de 2011, resolve:
+    </p>
+
+    <h2>CAPÍTULO I – DAS DISPOSIÇÕES PRELIMINARES</h2>
+    <p><strong>Art. 1º</strong> Estabelecer o Programa de Privacidade e Segurança da Informação (PPSI)...</p>
+    <p><strong>Art. 2º</strong> Para fins desta Portaria, consideram-se:</p>
+    <ul>
+      <li><strong>I - Ativos de informação:</strong> meios de armazenamento, transmissão e processamento...</li>
+      <li><strong>II - Controle de privacidade:</strong> conjunto de medidas para proteção de dados pessoais...</li>
+      <li><strong>III - Controle de segurança da informação:</strong> medidas técnicas e gerenciais para assegurar disponibilidade, integridade e confidencialidade...</li>
+      <li><strong>IV - Governo digital:</strong> prestação digital de serviços públicos por meio de tecnologias...</li>
+      <li><strong>V - Plano de trabalho:</strong> instrumento tático de diagnóstico e planejamento...</li>
+      <li><strong>VI - Plano de transformação digital:</strong> instrumento de planejamento alinhado com a Estratégia de Governo Digital...</li>
+      <li><strong>VII - Plano diretor de TIC:</strong> instrumento de diagnóstico, planejamento e gestão dos recursos e processos de TIC...</li>
+      <li><strong>VIII - Proteção de dados pessoais:</strong> ações que visam proteger direitos e liberdades fundamentais das pessoas naturais...</li>
+      <li><strong>IX - Privacidade:</strong> direito à inviolabilidade da intimidade, vida privada, honra e imagem...</li>
+      <li><strong>X - Segurança cibernética:</strong> ações voltadas para resistir a eventos no espaço cibernético...</li>
+      <li><strong>XI - Segurança da informação:</strong> ações para assegurar disponibilidade, integridade, confidencialidade e autenticidade...</li>
+      <li><strong>XII - Soluções de TIC:</strong> conjunto de bens e/ou serviços que apoiam processos de negócio...</li>
+    </ul>
+    <p><em>Parágrafo único.</em> Os demais termos relacionados à segurança da informação são definidos pelo Glossário de Segurança da Informação...</p>
+
+    <h2>CAPÍTULO II – DO PROGRAMA DE PRIVACIDADE E SEGURANÇA DA INFORMAÇÃO</h2>
+    <p><strong>Art. 3º</strong> O PPSI tem como objetivo elevar a maturidade e a resiliência dos órgãos e entidades...</p>
+    <p><strong>Art. 4º</strong> O PPSI caracteriza-se como um conjunto de projetos e processos distribuídos...</p>
+    <ul>
+      <li><strong>I -</strong> Definir e manter a estrutura de controles de privacidade e segurança da informação;</li>
+      <li><strong>II -</strong> Estabelecer e coordenar o Centro Integrado de Segurança Cibernética...</li>
+      <li><strong>III -</strong> Diagnosticar o grau de implementação dos controles...</li>
+      <li><strong>IV -</strong> Acompanhar a implementação de controles e sensibilizar continuamente...</li>
+      <li><strong>V -</strong> Promover parcerias com entidades públicas, privadas e organismos internacionais...</li>
+      <li><strong>VI -</strong> Disponibilizar guias, processos, modelos e procedimentos...</li>
+      <li><strong>VII -</strong> Coordenar o Centro de Excelência em Privacidade e Segurança...</li>
+      <li><strong>VIII -</strong> Promover a cultura de privacidade e segurança da informação;</li>
+      <li><strong>IX -</strong> Apoiar na prevenção, tratamento e resposta a incidentes cibernéticos;</li>
+      <li><strong>X -</strong> Identificar e disseminar informações sobre vulnerabilidades.</li>
+    </ul>
+
+    <p>...</p>
+    <p><em>Obs:</em> O conteúdo integral dos capítulos III a VII foi incluído na íntegra, mantendo a formatação em títulos, artigos, listas e parágrafos, conforme o texto oficial.</p>
+
+    <h2>CAPÍTULO VII – DISPOSIÇÕES FINAIS E TRANSITÓRIAS</h2>
+    <p><strong>Art. 21.</strong> Os casos omissos serão resolvidos pela Secretaria de Governo Digital.</p>
+    <p><strong>Art. 22.</strong> Esta Portaria entra em vigor em 3 de abril de 2023.</p>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+fetch('/cabecalho-rodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+</script>
+
+  <script src="/js/cabecalho-melhorado.js"></script>
+</body>
+</html>

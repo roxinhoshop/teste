@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuário | Roxinho Shop</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/cabecalho-rodape.css">
+  <link rel="stylesheet" href="/css/painelusuario.css">
+  <link rel="stylesheet" href="/css/painel-melhorado.css">
+  <link rel="stylesheet" href="/css/configuracoes.css">
+  <link rel="stylesheet" href="/css/responsivo.css">
+  <!-- Removidos temas e sistema XP nesta página para simplificar -->
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/imagens/logos/favicon-32x32.png">
+  <script src="/js/config.js"></script>
+</head>
+<body>
+  
+  <!-- Cabeçalho inline (sem barra de categorias) -->
+  <nav class="cabecalho">
+    <div class="container-cabecalho">
+      <!-- LOGO -->
+      <a class="logo" href="/">
+  <img src="/imagens/logos/logo-cabecalho.png" alt="Roxinho Shop" class="logo-imagem">
+      </a>
+
+      <!-- BARRA DE PESQUISA -->
+      <div class="caixa-pesquisa">
+        <input type="text" id="campo-busca-global" placeholder="Buscar produtos, marcas ou categorias..." autocomplete="off">
+        <button type="button" id="botao-busca-global" class="botao-busca">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <div id="sugestoes-busca" class="sugestoes-busca" style="display: none;"></div>
+      </div>
+
+      <!-- Ações à direita: alternância de modo escuro + login/usuário (mesma linha) -->
+      <div class="icones">
+        <!-- Botão de alternância de modo escuro -->
+        <button type="button" id="btnDarkMode" class="dark-toggle" aria-label="Alternar modo escuro" title="Alternar modo escuro">
+          <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+        
+        <!-- Login / Usuário -->
+        <div class="caixa-entre" id="caixa-login">
+  <img src="/imagens/logos/avatar-roxo.svg" alt="Avatar" class="avatar" id="avatar-usuario">
+          <div class="texto" id="texto-login">
+            <strong id="status-login">Entre</strong>
+            <br><span id="subtexto-login">Iniciar Sessão</span>
+          </div>
+          <i class="fa-solid fa-arrow-right seta" id="seta-login"></i>
+          <div id="dropdown-usuario" class="dropdown-usuario" style="display: none;">
+            <div class="opcoes-usuario">
+                  <a href="/configuracoes"><i class="fa-solid fa-gear"></i> Configurações</a>
+              <a href="#" id="botao-logout" class="logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container-painel">
+    <div class="container">
+        <div class="wrapper-conteudo">
+            <!-- Sidebar -->
+            <nav class="coluna-esquerda" role="navigation" aria-label="Menu de Configurações">
+                <div class="barra-filtros">
+                    <div class="cabecalho-filtros">
+                        <h3>Menu Principal</h3>
+                    </div>
+                    
+                    <ul class="menu-navegacao" id="menu-config">
+                        <li class="item-navegacao">
+                            <a href="#perfil" class="link-navegacao active" data-section="perfil" aria-current="page">
+                                <i class="fas fa-user-gear" aria-hidden="true"></i>
+                                <span>Perfil</span>
+                            </a>
+                        </li>
+                        <li class="item-navegacao">
+                            <a href="#seguranca" class="link-navegacao" data-section="seguranca">
+                                <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                                <span>Segurança</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Área Principal -->
+            <main class="area-produtos">
+                <!-- Breadcrumb -->
+           <div class="breadcrumb-dinamico">
+                    <span class="texto-voce-esta-em">Você está em:</span>
+                    <div class="caminho">
+                        <span class="item-caminho">Painel</span>
+                        <span class="separador">></span>
+                        <span class="item-caminho ativo" id="breadcrumb-atual">Configurações</span>
+                    </div>
+                </div> 
+
+
+                <!-- Settings Section -->
+                <section id="settings" class="secao-conteudo active">
+                  <!-- Layout profissional: cards sem accordion -->
+                  <section id="perfil" class="card-config">
+                    <h3>Perfil</h3>
+                    <div class="perfil-grid">
+                      <!-- Coluna: formulário de perfil -->
+                      <div class="perfil-form-col">
+                        <form id="form-configuracoes">
+                            <div class="linha-formulario">
+                                <div class="grupo-formulario">
+                                  <div class="form-group">
+                                    <input type="text" id="nome" name="nome" class="form-input" placeholder=" " autocomplete="given-name" aria-describedby="erro-nome">
+                                    <label class="rotulo-formulario floating-label" for="nome">Nome</label>
+                                  </div>
+                                </div>
+                                <div class="grupo-formulario">
+                                  <div class="form-group">
+                                    <input type="text" id="sobrenome" name="sobrenome" class="form-input" placeholder=" " autocomplete="family-name" aria-describedby="erro-sobrenome">
+                                    <label class="rotulo-formulario floating-label" for="sobrenome">Sobrenome</label>
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="grupo-formulario coluna-completa">
+                              <div class="form-group">
+                                <input type="email" id="email" name="email" class="form-input" placeholder=" " autocomplete="email" aria-describedby="erro-email">
+                                <label class="rotulo-formulario floating-label" for="email">Email</label>
+                              </div>
+                            </div>
+
+                            <div class="acoes-formulario">
+                                <button type="submit" class="botao-primario" id="btn-salvar-perfil">Salvar Perfil</button>
+                                <button type="button" class="botao-secundario" id="btn-cancelar-perfil">Cancelar</button>
+                                <button type="button" class="botao-secundario" id="btn-redefinir-perfil" title="Redefinir para valores padrão">Redefinir</button>
+                            </div>
+                            <p class="mensagem-status" id="status-perfil" aria-live="polite"></p>
+                        </form>
+                      </div>
+
+                      <!-- Coluna: avatar e upload -->
+                      <div class="perfil-avatar-col">
+                        <div class="perfil-avatar">
+                          <div class="avatar-container">
+  <img id="avatar-atual" class="avatar-preview" src="/imagens/logos/avatar-roxo.svg" alt="Avatar do usuário">
+                              <div class="avatar-upload">
+                              <input type="file" id="avatar-input" accept="image/png, image/jpeg, image/webp">
+                              <button type="button" class="btn-upload-avatar" id="btn-alterar-foto">
+                                <i class="fas fa-camera"></i>
+                                Alterar Foto
+                              </button>
+                              <button type="button" class="btn-remover-avatar" id="btn-remover-foto" title="Remover foto e voltar ao padrão">
+                                <i class="fas fa-trash"></i>
+                                Remover Foto
+                              </button>
+                              <p class="mensagem-status" id="status-avatar" aria-live="polite">Formatos aceitos: JPG/PNG até 5MB.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section id="seguranca" class="card-config">
+                    <h3>Segurança</h3>
+                    <form id="form-senha">
+                      <div class="grupo-formulario coluna-completa">
+                        <div class="form-group">
+                          <input type="password" id="senha-atual" name="senha-atual" class="form-input" placeholder=" " autocomplete="current-password" aria-describedby="erro-senha-atual">
+                          <label class="rotulo-formulario floating-label" for="senha-atual">Senha atual</label>
+                        </div>
+                      </div>
+                      <div class="linha-formulario">
+                        <div class="grupo-formulario">
+                          <div class="form-group">
+                            <input type="password" id="nova-senha" name="nova-senha" class="form-input" placeholder=" " autocomplete="new-password" aria-describedby="erro-nova-senha">
+                            <label class="rotulo-formulario floating-label" for="nova-senha">Nova senha</label>
+                          </div>
+                        </div>
+                        <div class="grupo-formulario">
+                          <div class="form-group">
+                            <input type="password" id="confirmar-senha" name="confirmar-senha" class="form-input" placeholder=" " autocomplete="new-password" aria-describedby="erro-confirmar-senha">
+                            <label class="rotulo-formulario floating-label" for="confirmar-senha">Confirmar nova senha</label>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="botao-primario">Alterar Senha</button>
+                      <p class="mensagem-status" id="status-senha" aria-live="polite"></p>
+                    </form>
+                  </section>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Rodapé será inserido diretamente no body, sem wrapper -->
+
+  <script src="/js/site-popup.js"></script>
+  <script src="/js/cabecalho-melhorado.js"></script>
+  <script src="/js/configuracoes.js"></script>
+    <script>
+      // Carregar apenas o Footer e inserir diretamente no body
+fetch('/cabecalho-rodape.html')
+        .then(response => response.text())
+        .then(data => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data, 'text/html');
+          const footer = doc.querySelector('footer.rodape');
+          if (footer) {
+            document.body.appendChild(footer);
+          }
+        })
+        .catch(err => console.error('Erro ao carregar rodapé:', err));
+    </script>
+</body>
+</html>
